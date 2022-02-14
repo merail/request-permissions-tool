@@ -7,12 +7,12 @@ import androidx.core.app.ActivityCompat;
 
 import java.util.ArrayList;
 
-public class PermissionRequester {
+public class RuntimePermissionRequester {
     private final Activity activity;
     private static final int REQUEST_CODE_FOR_PERMISSIONS = 1;
     private ArrayList<String> permissionsForRequest;
 
-    public PermissionRequester(Activity activity) {
+    public RuntimePermissionRequester(Activity activity) {
         this.activity = activity;
     }
 
@@ -22,12 +22,7 @@ public class PermissionRequester {
             checkSelfPermission(permission);
         }
 
-        if (!permissionsForRequest.isEmpty()) {
-            requestPermissions();
-            return false;
-        } else {
-            return true;
-        }
+        return permissionsForRequest.isEmpty();
     }
 
     private void checkSelfPermission(String permission) {
@@ -39,7 +34,11 @@ public class PermissionRequester {
         }
     }
 
-    private void requestPermissions() {
+    public void setPermissionsForRequest(ArrayList<String> permissionsForRequest) {
+        this.permissionsForRequest = permissionsForRequest;
+    }
+
+    public void requestPermissions() {
         String[] permissionsForRequestArray = convertArrayListToArray(permissionsForRequest);
         ActivityCompat.requestPermissions(
                 activity, permissionsForRequest.toArray(permissionsForRequestArray),
@@ -68,12 +67,6 @@ public class PermissionRequester {
         );
     }
 
-    public String[] convertArrayListToArray(ArrayList<String> arrayList) {
-        String[] array = new String[arrayList.size()];
-        array = arrayList.toArray(array);
-        return array;
-    }
-
     public ArrayList<String> getPermissionsForRationale(ArrayList<String> notGrantedPermissions) {
         ArrayList<String> permissionsForRationale = new ArrayList<>();
         for (String notGrantedPermission : notGrantedPermissions) {
@@ -92,5 +85,11 @@ public class PermissionRequester {
             }
         }
         return deniedPermissions;
+    }
+
+    public String[] convertArrayListToArray(ArrayList<String> arrayList) {
+        String[] array = new String[arrayList.size()];
+        array = arrayList.toArray(array);
+        return array;
     }
 }

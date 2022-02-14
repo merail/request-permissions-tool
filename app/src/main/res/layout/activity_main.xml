@@ -7,14 +7,25 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/requestPermission"
+        android:id="@+id/requestRuntimePermission"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/get_permissions"
+        android:text="@string/get_runtime_permissions"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/requestSpecialPermission"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/requestSpecialPermission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_special_permissions"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/requestRuntimePermission" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

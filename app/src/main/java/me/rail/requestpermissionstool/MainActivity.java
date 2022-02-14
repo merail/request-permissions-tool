@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SpecialPermissionRequester specialPermissionRequester;
+    private RuntimePermissionRequester runtimePermissionRequester;
+
     private final String[] permissions = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_CONTACTS,
@@ -19,56 +22,99 @@ public class MainActivity extends AppCompatActivity {
     };
     private ArrayList<String> notGrantedPermissions;
 
-    private PermissionRequester permissionRequester;
-
-    private Button getPermissions;
+    private Button getRuntimePermissions;
+    private Button getSpecialPermissions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        permissionRequester = new PermissionRequester(this);
+        specialPermissionRequester = new SpecialPermissionRequester(this);
+        runtimePermissionRequester = new RuntimePermissionRequester(this);
 
-        getPermissions = findViewById(R.id.requestPermission);
+        getRuntimePermissions = findViewById(R.id.requestRuntimePermission);
         setOnGetPermissionsClickListener();
+        getSpecialPermissions = findViewById(R.id.requestSpecialPermission);
+        setOnGetSpecialPermissionsClickListener();
+
+        if (!specialPermissionRequester.checkSystemAlertWindowPermission()) {
+            specialPermissionRequester.requestSystemAlertWindowPermission();
+        }
+        if (!runtimePermissionRequester.checkSelfPermissions(permissions)) {
+            runtimePermissionRequester.requestPermissions();
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Boolean isAllPermissionsGranted = permissionRequester.checkSelfPermissions(permissions);
-        if (isAllPermissionsGranted) {
-            getPermissions.setVisibility(View.GONE);
-        }
+
+        checkSpecialPermissions();
+        checkRuntimePermissions();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        ArrayList<String> notGrantedPermissions =
-                permissionRequester.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (notGrantedPermissions.isEmpty()) {
-            getPermissions.setVisibility(View.GONE);
-        } else {
-            this.notGrantedPermissions = notGrantedPermissions;
-            getPermissions.setVisibility(View.VISIBLE);
-        }
+        notGrantedPermissions =
+                runtimePermissionRequester.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        setGetRuntimePermissionsVisibility(notGrantedPermissions.isEmpty());
     }
 
     private void setOnGetPermissionsClickListener() {
-        getPermissions.setOnClickListener(view -> {
-            ArrayList<String> permissionsForRationale = permissionRequester.getPermissionsForRationale(notGrantedPermissions);
-            if (!permissionsForRationale.isEmpty()) {
-                permissionRequester.checkSelfPermissions(permissionRequester.convertArrayListToArray(permissionsForRationale));
-            }
-
-            ArrayList<String> deniedPermissions = permissionRequester.getDeniedPermissions(notGrantedPermissions);
-            if (!deniedPermissions.isEmpty()) {
-                GoingToSettingsSnackbar goingToSettingsSnackbar = new GoingToSettingsSnackbar(this, view);
-                goingToSettingsSnackbar.showSnackbar("You must grant permissions in Settings!", "Settings");
-            }
+        getRuntimePermissions.setOnClickListener(view -> {
+            checkPermissionsForRationale();
+            checkDeniedPermissions(view);
         });
+    }
+
+    private void setOnGetSpecialPermissionsClickListener() {
+        getSpecialPermissions.setOnClickListener(view ->
+                specialPermissionRequester.requestSystemAlertWindowPermission());
+    }
+
+    private void checkSpecialPermissions() {
+        Boolean isSpecialPermissionGranted = specialPermissionRequester.checkSystemAlertWindowPermission();
+        setGetSpecialPermissionsVisibility(isSpecialPermissionGranted);
+    }
+
+    private void checkRuntimePermissions() {
+        Boolean isAllRuntimePermissionsGranted = runtimePermissionRequester.checkSelfPermissions(permissions);
+        setGetRuntimePermissionsVisibility(isAllRuntimePermissionsGranted);
+    }
+
+    private void setGetSpecialPermissionsVisibility(Boolean hide) {
+        if (hide) {
+            getSpecialPermissions.setVisibility(View.GONE);
+        } else {
+            getSpecialPermissions.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setGetRuntimePermissionsVisibility(Boolean hide) {
+        if (hide) {
+            getRuntimePermissions.setVisibility(View.GONE);
+        } else {
+            getRuntimePermissions.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void checkPermissionsForRationale() {
+        ArrayList<String> permissionsForRationale = runtimePermissionRequester.getPermissionsForRationale(notGrantedPermissions);
+        if (!permissionsForRationale.isEmpty()) {
+            runtimePermissionRequester.setPermissionsForRequest(permissionsForRationale);
+            runtimePermissionRequester.requestPermissions();
+        }
+    }
+
+    private void checkDeniedPermissions(View view) {
+        ArrayList<String> deniedPermissions = runtimePermissionRequester.getDeniedPermissions(notGrantedPermissions);
+        if (!deniedPermissions.isEmpty()) {
+            GoingToSettingsSnackbar goingToSettingsSnackbar = new GoingToSettingsSnackbar(this, view);
+            goingToSettingsSnackbar.showSnackbar("You must grant permissions in Settings!", "Settings");
+        }
     }
 }
