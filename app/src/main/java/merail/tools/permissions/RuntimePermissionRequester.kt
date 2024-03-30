@@ -2,9 +2,12 @@ package merail.tools.permissions
 
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+
+const val TAG = "MERAIL_TOOLS"
 
 class RuntimePermissionRequester(
     private val activity: AppCompatActivity,
@@ -20,9 +23,18 @@ class RuntimePermissionRequester(
                 ActivityCompat.shouldShowRequestPermissionRationale(
                     activity,
                     entry.key,
-                ).not() -> PermissionState.PERMANENT_DENIED
-                entry.value.not() -> PermissionState.DENIED
-                else -> PermissionState.GRANTED
+                ).not() -> {
+                    Log.d(TAG, "Permission ${entry.key} was permanently denied")
+                    PermissionState.PERMANENT_DENIED
+                }
+                entry.value.not() -> {
+                    Log.d(TAG, "Permission ${entry.key} was denied")
+                    PermissionState.DENIED
+                }
+                else -> {
+                    Log.d(TAG, "Permission ${entry.key} was granted")
+                    PermissionState.GRANTED
+                }
             }
         }
         onPermissionsRequest?.invoke(permissionsRequestResult)
