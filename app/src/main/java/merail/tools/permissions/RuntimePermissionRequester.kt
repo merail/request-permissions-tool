@@ -17,11 +17,11 @@ class RuntimePermissionRequester(
     ) { permissionsGrants ->
         val permissionsRequestResult = permissionsGrants.entries.associate { entry ->
             Permission(entry.key) to when {
-                entry.value.not() -> PermissionState.DENIED
                 ActivityCompat.shouldShowRequestPermissionRationale(
                     activity,
                     entry.key,
                 ).not() -> PermissionState.PERMANENT_DENIED
+                entry.value.not() -> PermissionState.DENIED
                 else -> PermissionState.GRANTED
             }
         }
