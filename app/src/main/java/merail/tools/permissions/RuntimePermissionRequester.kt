@@ -2,6 +2,7 @@ package merail.tools.permissions
 
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -20,7 +21,7 @@ class RuntimePermissionRequester(
             .filter {
                 it.value
             }.keys.toList()
-
+        Log.d("BBBBBBBB", notGrantedPermissions.toString())
         onPermissionsRequest(notGrantedPermissions)
     }
 
