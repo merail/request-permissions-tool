@@ -24,15 +24,18 @@ class RuntimePermissionRequester(
                     activity,
                     entry.key,
                 ) -> {
-                    Log.d(TAG, "Permission ${entry.key} was permanently denied")
-                    PermissionState.PERMANENT_DENIED
+                    Log.d(TAG, "Permission ${entry.key} is denied")
+                    PermissionState.DENIED
                 }
-                entry.value.not() -> {
-                    Log.d(TAG, "Permission ${entry.key} was denied")
+                ActivityCompat.shouldShowRequestPermissionRationale(
+                    activity,
+                    entry.key,
+                ).not() && entry.value.not() -> {
+                    Log.d(TAG, "Permission ${entry.key} is permanently denied")
                     PermissionState.DENIED
                 }
                 else -> {
-                    Log.d(TAG, "Permission ${entry.key} was granted")
+                    Log.d(TAG, "Permission ${entry.key} is granted")
                     PermissionState.GRANTED
                 }
             }
