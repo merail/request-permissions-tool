@@ -1,4 +1,4 @@
-package merail.tools.permissions
+package merail.tools.permissions.runtime
 
 import android.app.Activity
 import android.content.pm.PackageManager
@@ -13,30 +13,30 @@ class RuntimePermissionRequester(
     private val activity: AppCompatActivity,
     private val permissionsForRequest: Array<String>,
 ) {
-    private var onPermissionsRequest: ((Map<Permission, PermissionState>) -> Unit)? = null
+    private var onPermissionsRequest: ((Map<RuntimePermission, RuntimePermissionState>) -> Unit)? = null
 
     private val requestPermissionLauncher = activity.registerForActivityResult(
         RequestMultiplePermissions(),
     ) { permissionsGrants ->
         val permissionsRequestResult = permissionsGrants.entries.associate { entry ->
-            Permission(entry.key) to when {
+            RuntimePermission(entry.key) to when {
                 ActivityCompat.shouldShowRequestPermissionRationale(
                     activity,
                     entry.key,
                 ) -> {
                     Log.d(TAG, "Permission ${entry.key} is denied")
-                    PermissionState.DENIED
+                    RuntimePermissionState.DENIED
                 }
                 ActivityCompat.shouldShowRequestPermissionRationale(
                     activity,
                     entry.key,
                 ).not() && entry.value.not() -> {
                     Log.d(TAG, "Permission ${entry.key} is permanently denied")
-                    PermissionState.DENIED
+                    RuntimePermissionState.PERMANENT_DENIED
                 }
                 else -> {
                     Log.d(TAG, "Permission ${entry.key} is granted")
-                    PermissionState.GRANTED
+                    RuntimePermissionState.GRANTED
                 }
             }
         }
@@ -48,7 +48,7 @@ class RuntimePermissionRequester(
     }
 
     fun requestPermissions(
-        onPermissionsRequest: ((Map<Permission, PermissionState>) -> Unit)?,
+        onPermissionsRequest: ((Map<RuntimePermission, RuntimePermissionState>) -> Unit)?,
     ) {
         this.onPermissionsRequest = onPermissionsRequest
         requestPermissionLauncher.launch(permissionsForRequest)
