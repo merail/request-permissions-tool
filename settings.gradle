@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Request Permissions Tool"
+rootProject.name = "request-permissions-tool"
 include ':app'

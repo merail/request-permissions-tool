@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Request Permissions Tool</string>
-    <string name="get_runtime_permissions">GET RUNTIME PERMISSIONS</string>
-    <string name="get_special_permissions">GET SPECIAL PERMISSIONS</string>
-</resources>
