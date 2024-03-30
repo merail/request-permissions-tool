@@ -10,7 +10,7 @@ class RuntimePermissionRequester(
     private val activity: AppCompatActivity,
     private val permissionsForRequest: Array<String>,
 ) {
-    private var onPermissionsRequest: ((List<String>) -> Unit)? = null
+    private var onPermissionsRequest: ((List<String>, List<String>) -> Unit)? = null
 
     private val requestPermissionLauncher = activity.registerForActivityResult(
         RequestMultiplePermissions(),
@@ -19,7 +19,11 @@ class RuntimePermissionRequester(
             .filter {
                 it.value.not()
             }.keys.toList()
-        onPermissionsRequest?.invoke(deniedPermissions)
+        val permanentDeniedPermissions = deniedPermissions
+            .filter {
+                ActivityCompat.shouldShowRequestPermissionRationale(activity, it).not()
+            }
+        onPermissionsRequest?.invoke(deniedPermissions, permanentDeniedPermissions)
     }
 
     fun areAllPermissionsGranted() = permissionsForRequest.none { permission ->
@@ -27,7 +31,7 @@ class RuntimePermissionRequester(
     }
 
     fun requestPermissions(
-        onPermissionsRequest: ((List<String>) -> Unit)?,
+        onPermissionsRequest: ((List<String>, List<String>) -> Unit)?,
     ) {
         this.onPermissionsRequest = onPermissionsRequest
         requestPermissionLauncher.launch(permissionsForRequest)
