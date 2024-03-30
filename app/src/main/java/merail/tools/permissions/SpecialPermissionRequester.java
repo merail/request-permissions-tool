@@ -1,4 +1,4 @@
-package me.rail.tools.permissions;
+package merail.tools.permissions;
 
 import android.provider.Settings;
 
