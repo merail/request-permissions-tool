@@ -1,22 +1,20 @@
-package merail.tools.permissions;
+package merail.tools.permissions
 
-import android.provider.Settings;
+import android.os.Build
+import android.provider.Settings
+import androidx.activity.ComponentActivity
 
-import androidx.activity.ComponentActivity;
+class SpecialPermissionRequester(private val activity: ComponentActivity) {
 
-public class SpecialPermissionRequester {
-
-    private final ComponentActivity activity;
-
-    public SpecialPermissionRequester(ComponentActivity activity) {
-        this.activity = activity;
+    fun checkSystemAlertWindowPermission() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        Settings.canDrawOverlays(activity)
+    } else {
+        true
     }
 
-    public Boolean checkSystemAlertWindowPermission() {
-        return Settings.canDrawOverlays(activity);
-    }
-
-    public void requestSystemAlertWindowPermission() {
-        SettingsOpener.openSettings(activity, Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+    fun requestSystemAlertWindowPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            SettingsOpener.openSettings(activity, Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+        }
     }
 }

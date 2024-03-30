@@ -1,15 +1,18 @@
-package merail.tools.permissions;
+package merail.tools.permissions
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 
-public class SettingsOpener {
-    private static final String scheme = "package";
+object SettingsOpener {
 
-    public static void openSettings(Activity activity, String action) {
-        Intent intent = new Intent(action,
-                Uri.fromParts(scheme, activity.getPackageName(), null));
-        activity.startActivity(intent);
+    private const val SCHEME = "package"
+
+    fun openSettings(activity: Activity, action: String) {
+        val intent = Intent(
+            action,
+            Uri.fromParts(SCHEME, activity.packageName, null)
+        )
+        activity.startActivity(intent)
     }
 }

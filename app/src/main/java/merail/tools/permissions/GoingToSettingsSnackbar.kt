@@ -1,36 +1,35 @@
-package merail.tools.permissions;
+package merail.tools.permissions
 
-import android.app.Activity;
-import android.provider.Settings;
-import android.view.View;
+import android.app.Activity
+import android.provider.Settings
+import android.view.View
+import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
+import com.google.android.material.snackbar.Snackbar
 
-import com.google.android.material.snackbar.Snackbar;
+class GoingToSettingsSnackbar(
+    private val activity: Activity,
+    private val view: View,
+) {
 
-public class GoingToSettingsSnackbar {
-    private final Activity activity;
-    private final View view;
+    fun showSnackbar(
+        text: String,
+        actionName: String,
+    ) = createSnackbar(text)
+        .setAction(actionName)
+        .show()
 
-    public GoingToSettingsSnackbar(Activity activity, View view) {
-        this.activity = activity;
-        this.view = view;
-    }
+    private fun createSnackbar(text: String) = Snackbar.make(
+        view,
+        text,
+        Snackbar.LENGTH_LONG,
+    )
 
-    public void showSnackbar(String text, String actionName) {
-        Snackbar goingToSettingsSnackbar = createSnackbar(text);
-        goingToSettingsSnackbar = setAction(goingToSettingsSnackbar, actionName);
-        goingToSettingsSnackbar.show();
-    }
-
-    private Snackbar createSnackbar(String text) {
-        return Snackbar.make(
-                view,
-                text,
-                Snackbar.LENGTH_LONG
-        );
-    }
-
-    private Snackbar setAction(Snackbar snackbar, String actionName) {
-        return snackbar.setAction(actionName, view1 ->
-                SettingsOpener.openSettings(activity, Settings.ACTION_APPLICATION_DETAILS_SETTINGS));
+    private fun Snackbar.setAction(
+        actionName: String,
+    ) = setAction(actionName) {
+        SettingsOpener.openSettings(
+            activity,
+            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+        )
     }
 }
