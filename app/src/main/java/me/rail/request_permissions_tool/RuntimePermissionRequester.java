@@ -1,4 +1,4 @@
-package me.rail.requestpermissionstool;
+package me.rail.request_permissions_tool;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;

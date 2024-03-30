@@ -1,4 +1,4 @@
-package me.rail.requestpermissionstool;
+package me.rail.request_permissions_tool;
 
 import org.junit.Test;
 
