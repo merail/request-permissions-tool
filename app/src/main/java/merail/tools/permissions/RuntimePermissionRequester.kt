@@ -23,7 +23,7 @@ class RuntimePermissionRequester(
                 ActivityCompat.shouldShowRequestPermissionRationale(
                     activity,
                     entry.key,
-                ).not() -> {
+                ) -> {
                     Log.d(TAG, "Permission ${entry.key} was permanently denied")
                     PermissionState.PERMANENT_DENIED
                 }
