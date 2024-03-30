@@ -2,51 +2,37 @@ package merail.tools.permissions
 
 import android.app.Activity
 import android.content.pm.PackageManager
+import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 
-class RuntimePermissionRequester(private val activity: Activity) {
+class RuntimePermissionRequester(
+    private val activity: AppCompatActivity,
+    private val permissionsForRequest: Array<String>,
+) {
 
-    companion object {
-        private const val REQUEST_CODE_FOR_PERMISSIONS = 1
+    private lateinit var onPermissionsRequest: (List<String>) -> Unit
+
+    private val requestPermissionLauncher = activity.registerForActivityResult(
+        RequestMultiplePermissions(),
+    ) { permissionsGrants ->
+        val notGrantedPermissions = permissionsGrants
+            .filter {
+                it.value
+            }.keys.toList()
+
+        onPermissionsRequest(notGrantedPermissions)
     }
 
-    private var permissionsForRequest = mutableListOf<String>()
-
-    fun checkSelfPermissions(permissions: Array<String>): Boolean {
-        permissions.forEach { permission ->
-            if (activity.isPermissionGranted(permission).not()) {
-                permissionsForRequest.add(permission)
-            }
-        }
-        return permissionsForRequest.isEmpty()
+    fun areAllPermissionsGranted() = permissionsForRequest.none { permission ->
+        activity.isPermissionGranted(permission).not()
     }
 
-    fun setPermissionsForRequest(permissionsForRequest: MutableList<String>) {
-        this.permissionsForRequest = permissionsForRequest
-    }
-
-    fun requestPermissions() = ActivityCompat.requestPermissions(
-        activity,
-        permissionsForRequest.toTypedArray(),
-        REQUEST_CODE_FOR_PERMISSIONS,
-    )
-
-    fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ): ArrayList<String> {
-        val notGrantedPermissions = ArrayList<String>()
-        if (requestCode == REQUEST_CODE_FOR_PERMISSIONS) {
-            if (grantResults.isNotEmpty()) {
-                for (i in grantResults.indices) {
-                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                        notGrantedPermissions.add(permissions[i])
-                    }
-                }
-            }
-        }
-        return notGrantedPermissions
+    fun requestPermissions(
+        onPermissionsRequest: (List<String>) -> Unit,
+    ) {
+        this.onPermissionsRequest = onPermissionsRequest
+        requestPermissionLauncher.launch(permissionsForRequest)
     }
 
     private fun shouldShowRequestPermissionRationale(
