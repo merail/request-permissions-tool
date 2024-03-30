@@ -10,17 +10,16 @@ class RuntimePermissionRequester(
     private val activity: AppCompatActivity,
     private val permissionsForRequest: Array<String>,
 ) {
-
-    private lateinit var onPermissionsRequest: (List<String>) -> Unit
+    private var onPermissionsRequest: ((List<String>) -> Unit)? = null
 
     private val requestPermissionLauncher = activity.registerForActivityResult(
         RequestMultiplePermissions(),
     ) { permissionsGrants ->
-        val notGrantedPermissions = permissionsGrants
+        val deniedPermissions = permissionsGrants
             .filter {
                 it.value.not()
             }.keys.toList()
-        onPermissionsRequest(notGrantedPermissions)
+        onPermissionsRequest?.invoke(deniedPermissions)
     }
 
     fun areAllPermissionsGranted() = permissionsForRequest.none { permission ->
@@ -28,37 +27,10 @@ class RuntimePermissionRequester(
     }
 
     fun requestPermissions(
-        onPermissionsRequest: (List<String>) -> Unit,
+        onPermissionsRequest: ((List<String>) -> Unit)?,
     ) {
         this.onPermissionsRequest = onPermissionsRequest
         requestPermissionLauncher.launch(permissionsForRequest)
-    }
-
-    private fun shouldShowRequestPermissionRationale(
-        permission: String,
-    ) = ActivityCompat.shouldShowRequestPermissionRationale(
-        activity,
-        permission,
-    )
-
-    fun getPermissionsForRationale(notGrantedPermissions: ArrayList<String>): ArrayList<String> {
-        val permissionsForRationale = ArrayList<String>()
-        for (notGrantedPermission in notGrantedPermissions) {
-            if (shouldShowRequestPermissionRationale(notGrantedPermission)) {
-                permissionsForRationale.add(notGrantedPermission)
-            }
-        }
-        return permissionsForRationale
-    }
-
-    fun getDeniedPermissions(notGrantedPermissions: ArrayList<String>): ArrayList<String> {
-        val deniedPermissions = ArrayList<String>()
-        for (notGrantedPermission in notGrantedPermissions) {
-            if (shouldShowRequestPermissionRationale(notGrantedPermission).not()) {
-                deniedPermissions.add(notGrantedPermission)
-            }
-        }
-        return deniedPermissions
     }
 
     private fun Activity.isPermissionGranted(
