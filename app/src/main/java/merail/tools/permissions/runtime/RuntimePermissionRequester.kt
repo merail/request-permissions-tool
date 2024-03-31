@@ -35,11 +35,11 @@ class RuntimePermissionRequester(
                     activity,
                     entry.key,
                 ).not() && entry.value.not() -> if (sharedPrefs.getBoolean(entry.key, false)) {
-                    Log.d(TAG, "Permission ${entry.key} is ignored")
-                    RuntimePermissionState.IGNORED
-                } else {
                     Log.d(TAG, "Permission ${entry.key} is permanently denied")
                     RuntimePermissionState.PERMANENT_DENIED
+                } else {
+                    Log.d(TAG, "Permission ${entry.key} is ignored")
+                    RuntimePermissionState.IGNORED
                 }
                 else -> {
                     Log.d(TAG, "Permission ${entry.key} is granted")
