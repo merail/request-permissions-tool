@@ -9,7 +9,7 @@ import androidx.core.app.ActivityCompat
 
 class RuntimePermissionRequester(
     private val activity: AppCompatActivity,
-    private val permissionsForRequest: Array<String>,
+    private val requestedPermissions: Array<String>,
 ) {
     companion object {
 
@@ -49,7 +49,7 @@ class RuntimePermissionRequester(
         onPermissionsRequest?.invoke(permissionsRequestResult)
     }
 
-    fun areAllPermissionsGranted() = permissionsForRequest.none { permission ->
+    fun areAllPermissionsGranted() = requestedPermissions.none { permission ->
         isPermissionGranted(permission).not()
     }
 
@@ -57,8 +57,12 @@ class RuntimePermissionRequester(
         onPermissionsRequest: ((Map<String, RuntimePermissionState>) -> Unit)?,
     ) {
         this.onPermissionsRequest = onPermissionsRequest
-        requestPermissionLauncher.launch(permissionsForRequest)
+        requestPermissionLauncher.launch(requestedPermissions)
     }
+
+    fun Map<String, RuntimePermissionState>.hasPermanentlyDeniedPermissions() = containsValue(
+        value = RuntimePermissionState.PERMANENTLY_DENIED,
+    )
 
     private fun isPermissionGranted(
         permission: String,
