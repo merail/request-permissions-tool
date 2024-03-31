@@ -20,7 +20,7 @@ class RuntimePermissionRequester(
 
     private val preferences = activity.getSharedPreferences(PERMISSIONS_PREFERENCES, Context.MODE_PRIVATE)
 
-    private var onPermissionsRequest: ((Map<String, RuntimePermissionState>) -> Unit)? = null
+    private var onRuntimePermissionsRequestResult: ((Map<String, RuntimePermissionState>) -> Unit)? = null
 
     private val requestPermissionLauncher = activity.registerForActivityResult(
         RequestMultiplePermissions(),
@@ -46,7 +46,7 @@ class RuntimePermissionRequester(
                 }
             }
         }
-        onPermissionsRequest?.invoke(permissionsRequestResult)
+        onRuntimePermissionsRequestResult?.invoke(permissionsRequestResult)
     }
 
     fun areAllPermissionsGranted() = requestedPermissions.none { permission ->
@@ -54,9 +54,9 @@ class RuntimePermissionRequester(
     }
 
     fun requestPermissions(
-        onPermissionsRequest: ((Map<String, RuntimePermissionState>) -> Unit)?,
+        onRuntimePermissionsRequestResult: ((Map<String, RuntimePermissionState>) -> Unit)? = null,
     ) {
-        this.onPermissionsRequest = onPermissionsRequest
+        this.onRuntimePermissionsRequestResult = onRuntimePermissionsRequestResult
         requestPermissionLauncher.launch(requestedPermissions)
     }
 
