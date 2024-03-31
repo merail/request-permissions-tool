@@ -20,7 +20,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile(
+                "proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -40,7 +43,15 @@ android {
     }
 }
 
+//val devImplementation by configurations.creating {
+//    extendsFrom(configurations.debugImplementation.get())
+//}
+
 afterEvaluate {
+//    dependencies {
+//        add("devImplementation", project(":dev"))
+//    }
+
     publishing {
         publications {
             register<MavenPublication>("release") {
