@@ -16,6 +16,7 @@ internal object SettingsOpener {
             action,
             Uri.fromParts(SCHEME, activity.packageName, null)
         )
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         activity.startActivity(intent)
     }
 }
