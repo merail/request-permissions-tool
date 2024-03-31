@@ -23,21 +23,16 @@ class RuntimePermissionRequester(
     ) { permissionsGrants ->
         val permissionsRequestResult = permissionsGrants.entries.associate { entry ->
             RuntimePermission(entry.key) to when {
-                ActivityCompat.shouldShowRequestPermissionRationale(
-                    activity,
-                    entry.key,
-                ) -> {
+                entry.isPermissionDenied() -> {
                     Log.d(TAG, "Permission ${entry.key} is denied")
                     sharedPrefs.edit().putBoolean(entry.key, true).apply()
                     RuntimePermissionState.DENIED
                 }
-                ActivityCompat.shouldShowRequestPermissionRationale(
-                    activity,
-                    entry.key,
-                ).not() && entry.value.not() -> if (sharedPrefs.getBoolean(entry.key, false)) {
+                entry.isPermissionPermanentlyDenied() -> {
                     Log.d(TAG, "Permission ${entry.key} is permanently denied")
-                    RuntimePermissionState.PERMANENT_DENIED
-                } else {
+                    RuntimePermissionState.PERMANENTLY_DENIED
+                }
+                entry.isPermissionIgnored() -> {
                     Log.d(TAG, "Permission ${entry.key} is ignored")
                     RuntimePermissionState.IGNORED
                 }
@@ -51,7 +46,7 @@ class RuntimePermissionRequester(
     }
 
     fun areAllPermissionsGranted() = permissionsForRequest.none { permission ->
-        activity.isPermissionGranted(permission).not()
+        isPermissionGranted(permission).not()
     }
 
     fun requestPermissions(
@@ -61,10 +56,28 @@ class RuntimePermissionRequester(
         requestPermissionLauncher.launch(permissionsForRequest)
     }
 
-    private fun Activity.isPermissionGranted(
+    private fun isPermissionGranted(
         permission: String,
     ) = ActivityCompat.checkSelfPermission(
-        this,
+        activity,
         permission,
     ) == PackageManager.PERMISSION_GRANTED
+
+    private fun Map.Entry<String, Boolean>.isPermissionDenied() = ActivityCompat
+        .shouldShowRequestPermissionRationale(
+            activity,
+            key,
+        )
+
+    private fun Map.Entry<String, Boolean>.isPermissionPermanentlyDenied() = ActivityCompat
+        .shouldShowRequestPermissionRationale(
+            activity,
+            key,
+        ).not() && value.not() && sharedPrefs.getBoolean(key, false)
+
+    private fun Map.Entry<String, Boolean>.isPermissionIgnored() = ActivityCompat
+        .shouldShowRequestPermissionRationale(
+            activity,
+            key,
+        ).not() && value.not() && sharedPrefs.getBoolean(key, false).not()
 }

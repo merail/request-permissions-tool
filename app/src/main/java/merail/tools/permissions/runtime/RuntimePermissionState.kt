@@ -4,5 +4,5 @@ enum class RuntimePermissionState {
     GRANTED,
     DENIED,
     IGNORED,
-    PERMANENT_DENIED,
+    PERMANENTLY_DENIED,
 }
