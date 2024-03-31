@@ -1,10 +1,13 @@
-package merail.tools.permissions
+package merail.tools.permissions.special
 
 import android.os.Build
 import android.provider.Settings
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import merail.tools.permissions.common.SettingsOpener
 
-class SpecialPermissionRequester(private val activity: ComponentActivity) {
+class SpecialPermissionRequester(
+    private val activity: AppCompatActivity,
+) {
 
     fun checkSystemAlertWindowPermission() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         Settings.canDrawOverlays(activity)
