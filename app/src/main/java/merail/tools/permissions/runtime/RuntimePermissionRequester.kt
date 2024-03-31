@@ -1,6 +1,7 @@
 package merail.tools.permissions.runtime
 
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
@@ -15,6 +16,8 @@ class RuntimePermissionRequester(
 ) {
     private var onPermissionsRequest: ((Map<RuntimePermission, RuntimePermissionState>) -> Unit)? = null
 
+    private val sharedPrefs = activity.getSharedPreferences("test", Context.MODE_PRIVATE)
+
     private val requestPermissionLauncher = activity.registerForActivityResult(
         RequestMultiplePermissions(),
     ) { permissionsGrants ->
@@ -25,12 +28,16 @@ class RuntimePermissionRequester(
                     entry.key,
                 ) -> {
                     Log.d(TAG, "Permission ${entry.key} is denied")
+                    sharedPrefs.edit().putBoolean(entry.key, true).apply()
                     RuntimePermissionState.DENIED
                 }
                 ActivityCompat.shouldShowRequestPermissionRationale(
                     activity,
                     entry.key,
-                ).not() && entry.value.not() -> {
+                ).not() && entry.value.not() -> if (sharedPrefs.getBoolean(entry.key, false)) {
+                    Log.d(TAG, "Permission ${entry.key} is ignored")
+                    RuntimePermissionState.IGNORED
+                } else {
                     Log.d(TAG, "Permission ${entry.key} is permanently denied")
                     RuntimePermissionState.PERMANENT_DENIED
                 }
