@@ -1,6 +1,5 @@
 package merail.tools.permissions.runtime
 
-import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
@@ -8,24 +7,29 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestMultiple
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 
-const val TAG = "MERAIL_TOOLS"
-
 class RuntimePermissionRequester(
     private val activity: AppCompatActivity,
     private val permissionsForRequest: Array<String>,
 ) {
-    private var onPermissionsRequest: ((Map<RuntimePermission, RuntimePermissionState>) -> Unit)? = null
+    companion object {
 
-    private val sharedPrefs = activity.getSharedPreferences("test", Context.MODE_PRIVATE)
+        const val TAG = "MERAIL_TOOLS"
+
+        private const val PERMISSIONS_PREFERENCES = "PERMISSIONS_PREFERENCES"
+    }
+
+    private val preferences = activity.getSharedPreferences(PERMISSIONS_PREFERENCES, Context.MODE_PRIVATE)
+
+    private var onPermissionsRequest: ((Map<String, RuntimePermissionState>) -> Unit)? = null
 
     private val requestPermissionLauncher = activity.registerForActivityResult(
         RequestMultiplePermissions(),
     ) { permissionsGrants ->
         val permissionsRequestResult = permissionsGrants.entries.associate { entry ->
-            RuntimePermission(entry.key) to when {
+            entry.key to when {
                 entry.isPermissionDenied() -> {
                     Log.d(TAG, "Permission ${entry.key} is denied")
-                    sharedPrefs.edit().putBoolean(entry.key, true).apply()
+                    preferences.edit().putBoolean(entry.key, true).apply()
                     RuntimePermissionState.DENIED
                 }
                 entry.isPermissionPermanentlyDenied() -> {
@@ -50,7 +54,7 @@ class RuntimePermissionRequester(
     }
 
     fun requestPermissions(
-        onPermissionsRequest: ((Map<RuntimePermission, RuntimePermissionState>) -> Unit)?,
+        onPermissionsRequest: ((Map<String, RuntimePermissionState>) -> Unit)?,
     ) {
         this.onPermissionsRequest = onPermissionsRequest
         requestPermissionLauncher.launch(permissionsForRequest)
@@ -73,11 +77,11 @@ class RuntimePermissionRequester(
         .shouldShowRequestPermissionRationale(
             activity,
             key,
-        ).not() && value.not() && sharedPrefs.getBoolean(key, false)
+        ).not() && value.not() && preferences.getBoolean(key, false)
 
     private fun Map.Entry<String, Boolean>.isPermissionIgnored() = ActivityCompat
         .shouldShowRequestPermissionRationale(
             activity,
             key,
-        ).not() && value.not() && sharedPrefs.getBoolean(key, false).not()
+        ).not() && value.not() && preferences.getBoolean(key, false).not()
 }

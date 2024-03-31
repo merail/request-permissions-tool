@@ -1,9 +1,8 @@
-package merail.tools.permissions
+package merail.tools.permissions.special
 
 import android.app.Activity
 import android.provider.Settings
 import android.view.View
-import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
 import com.google.android.material.snackbar.Snackbar
 
 class GoingToSettingsSnackbar(
