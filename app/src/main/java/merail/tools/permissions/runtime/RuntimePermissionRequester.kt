@@ -3,12 +3,14 @@ package merail.tools.permissions.runtime
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
+import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import merail.tools.permissions.common.WrongTimeInitializationException
 
 class RuntimePermissionRequester(
-    private val activity: AppCompatActivity,
+    private val activity: ComponentActivity,
     private val requestedPermissions: Array<String>,
 ) {
     companion object {
@@ -18,35 +20,43 @@ class RuntimePermissionRequester(
         private const val PERMISSIONS_PREFERENCES = "PERMISSIONS_PREFERENCES"
     }
 
-    private val preferences = activity.getSharedPreferences(PERMISSIONS_PREFERENCES, Context.MODE_PRIVATE)
+    private val preferences = try {
+        activity.getSharedPreferences(PERMISSIONS_PREFERENCES, Context.MODE_PRIVATE)
+    } catch (exception: Exception) {
+        throw WrongTimeInitializationException()
+    }
 
     private var onRuntimePermissionsRequestResult: ((Map<String, RuntimePermissionState>) -> Unit)? = null
 
-    private val requestPermissionLauncher = activity.registerForActivityResult(
-        RequestMultiplePermissions(),
-    ) { permissionsGrants ->
-        val permissionsRequestResult = permissionsGrants.entries.associate { entry ->
-            entry.key to when {
-                entry.isPermissionDenied() -> {
-                    Log.d(TAG, "Permission ${entry.key} is denied")
-                    preferences.edit().putBoolean(entry.key, true).apply()
-                    RuntimePermissionState.DENIED
-                }
-                entry.isPermissionPermanentlyDenied() -> {
-                    Log.d(TAG, "Permission ${entry.key} is permanently denied")
-                    RuntimePermissionState.PERMANENTLY_DENIED
-                }
-                entry.isPermissionIgnored() -> {
-                    Log.d(TAG, "Permission ${entry.key} is ignored")
-                    RuntimePermissionState.IGNORED
-                }
-                else -> {
-                    Log.d(TAG, "Permission ${entry.key} is granted")
-                    RuntimePermissionState.GRANTED
+    private val requestPermissionLauncher = try {
+        activity.registerForActivityResult(
+            RequestMultiplePermissions(),
+        ) { permissionsGrants ->
+            val permissionsRequestResult = permissionsGrants.entries.associate { entry ->
+                entry.key to when {
+                    entry.isPermissionDenied() -> {
+                        Log.d(TAG, "Permission ${entry.key} is denied")
+                        preferences.edit().putBoolean(entry.key, true).apply()
+                        RuntimePermissionState.DENIED
+                    }
+                    entry.isPermissionPermanentlyDenied() -> {
+                        Log.d(TAG, "Permission ${entry.key} is permanently denied")
+                        RuntimePermissionState.PERMANENTLY_DENIED
+                    }
+                    entry.isPermissionIgnored() -> {
+                        Log.d(TAG, "Permission ${entry.key} is ignored")
+                        RuntimePermissionState.IGNORED
+                    }
+                    else -> {
+                        Log.d(TAG, "Permission ${entry.key} is granted")
+                        RuntimePermissionState.GRANTED
+                    }
                 }
             }
+            onRuntimePermissionsRequestResult?.invoke(permissionsRequestResult)
         }
-        onRuntimePermissionsRequestResult?.invoke(permissionsRequestResult)
+    } catch (exception: Exception) {
+        throw WrongTimeInitializationException()
     }
 
     fun areAllPermissionsGranted() = requestedPermissions.none { permission ->

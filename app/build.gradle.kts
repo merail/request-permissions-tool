@@ -43,15 +43,7 @@ android {
     }
 }
 
-//val devImplementation by configurations.creating {
-//    extendsFrom(configurations.debugImplementation.get())
-//}
-
 afterEvaluate {
-//    dependencies {
-//        add("devImplementation", project(":dev"))
-//    }
-
     publishing {
         publications {
             register<MavenPublication>("release") {
