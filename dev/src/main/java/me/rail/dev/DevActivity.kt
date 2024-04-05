@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,24 +16,29 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.rail.dev.ui.theme.RequestPermissionsToolTheme
 import me.rail.dev.ui.theme.Typography
+import merail.tools.permissions.inform.PermissionsInformer
 import merail.tools.permissions.runtime.RuntimePermissionRequester
+import merail.tools.permissions.runtime.RuntimePermissionState
 
 class DevActivity : ComponentActivity() {
 
-    private val requestedPermissions = arrayOf(
+    companion object {
+        private const val TAG = "DevActivity"
+    }
 
-        Manifest.permission.SYSTEM_ALERT_WINDOW,
-        Manifest.permission.READ_CALL_LOG,
+    private val requestedPermissions = arrayOf(
+        Manifest.permission.CALL_PHONE,
     )
 
     private lateinit var runtimePermissionRequester: RuntimePermissionRequester
+
+    private lateinit var permissionsInformer: PermissionsInformer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +48,8 @@ class DevActivity : ComponentActivity() {
                 Content()
             }
         }
+
+        permissionsInformer = PermissionsInformer(this@DevActivity)
 
         runtimePermissionRequester = RuntimePermissionRequester(
             activity = this@DevActivity,
@@ -54,34 +62,89 @@ class DevActivity : ComponentActivity() {
     )
     @Composable
     private fun Content() {
-        Box(
+        Column(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center,
+            verticalArrangement = Arrangement.SpaceAround,
         ) {
-            Button(
-                onClick = {
-                    if (runtimePermissionRequester.areAllPermissionsGranted().not()) {
-                        runtimePermissionRequester.requestPermissions {
-                            Log.d("DevActivity", it.toString())
+            CheckPermissionsButton()
+
+            RequestPermissionsButton()
+        }
+    }
+
+    @Composable
+    private fun CheckPermissionsButton() {
+        Button(
+            onClick = {
+                permissionsInformer.permissions.forEach {
+                    if (permissionsInformer.isSystem(it)) {
+                        Log.d(TAG, it)
+                    }
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(72.dp)
+                .padding(
+                    horizontal = 12.dp,
+                ),
+            shape = RoundedCornerShape(18.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Black,
+            ),
+        ) {
+            Text(
+                text = "Check permissions",
+                style = Typography.titleLarge,
+            )
+        }
+    }
+
+    @Composable
+    private fun RequestPermissionsButton() {
+        Button(
+            onClick = {
+                runtimePermissionRequester.requestPermissions {
+                    it.entries.forEach { entry ->
+                        if (entry.value == RuntimePermissionState.GRANTED) {
+                            Log.d(TAG, "${entry.key} ${entry.value}")
+                        } else {
+                            when {
+                                permissionsInformer.isInstallTime(entry.key) -> {
+                                    Log.d(TAG, "${entry.key} is INSTALL-TIME")
+                                }
+                                permissionsInformer.isRuntime(entry.key) -> {
+                                    Log.d(TAG, "${entry.key} is RUNTIME")
+                                }
+                                permissionsInformer.isSpecial(entry.key) -> {
+                                    Log.d(TAG, "${entry.key} is SPECIAL")
+                                }
+                                permissionsInformer.isSystem(entry.key) -> {
+                                    Log.d(TAG, "${entry.key} is SYSTEM")
+                                }
+                                else -> {
+                                    Log.d(TAG, "${entry.key} is UNDEFINED")
+                                }
+                            }
                         }
                     }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(72.dp)
-                    .padding(
-                        horizontal = 12.dp,
-                    ),
-                shape = RoundedCornerShape(18.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(72.dp)
+                .padding(
+                    horizontal = 12.dp,
                 ),
-            ) {
-                Text(
-                    text = "Request permission",
-                    style = Typography.titleLarge,
-                )
-            }
+            shape = RoundedCornerShape(18.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Black,
+            ),
+        ) {
+            Text(
+                text = "Request permissions",
+                style = Typography.titleLarge,
+            )
         }
     }
 }

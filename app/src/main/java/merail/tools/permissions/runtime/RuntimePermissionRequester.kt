@@ -74,7 +74,7 @@ class RuntimePermissionRequester(
         value = RuntimePermissionState.PERMANENTLY_DENIED,
     )
 
-    private fun isPermissionGranted(
+    fun isPermissionGranted(
         permission: String,
     ) = ActivityCompat.checkSelfPermission(
         activity,
