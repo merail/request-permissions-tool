@@ -25,6 +25,7 @@ import me.rail.dev.ui.theme.Typography
 import merail.tools.permissions.inform.PermissionsInformer
 import merail.tools.permissions.runtime.RuntimePermissionRequester
 import merail.tools.permissions.runtime.RuntimePermissionState
+import merail.tools.permissions.special.SpecialPermissionRequester
 
 class DevActivity : ComponentActivity() {
 
@@ -32,11 +33,15 @@ class DevActivity : ComponentActivity() {
         private const val TAG = "DevActivity"
     }
 
-    private val requestedPermissions = arrayOf(
+    private val runtimePermissions = arrayOf(
         Manifest.permission.CALL_PHONE,
     )
 
+    private val specialPermission = Manifest.permission.SYSTEM_ALERT_WINDOW
+
     private lateinit var runtimePermissionRequester: RuntimePermissionRequester
+    
+    private lateinit var specialPermissionRequester: SpecialPermissionRequester
 
     private lateinit var permissionsInformer: PermissionsInformer
 
@@ -49,12 +54,17 @@ class DevActivity : ComponentActivity() {
             }
         }
 
-        permissionsInformer = PermissionsInformer(this@DevActivity)
-
         runtimePermissionRequester = RuntimePermissionRequester(
             activity = this@DevActivity,
-            requestedPermissions = requestedPermissions,
+            requestedPermissions = runtimePermissions,
         )
+
+        specialPermissionRequester = SpecialPermissionRequester(
+            activity = this@DevActivity,
+            requestedPermission = specialPermission,
+        )
+
+        permissionsInformer = PermissionsInformer(this@DevActivity)
     }
 
     @Preview(
@@ -68,7 +78,9 @@ class DevActivity : ComponentActivity() {
         ) {
             CheckPermissionsButton()
 
-            RequestPermissionsButton()
+            RequestRuntimePermissionsButton()
+
+            RequestSpecialPermissionsButton()
         }
     }
 
@@ -101,7 +113,7 @@ class DevActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun RequestPermissionsButton() {
+    private fun RequestRuntimePermissionsButton() {
         Button(
             onClick = {
                 runtimePermissionRequester.requestPermissions {
@@ -142,7 +154,33 @@ class DevActivity : ComponentActivity() {
             ),
         ) {
             Text(
-                text = "Request permissions",
+                text = "Request runtime permissions",
+                style = Typography.titleLarge,
+            )
+        }
+    }
+
+    @Composable
+    private fun RequestSpecialPermissionsButton() {
+        Button(
+            onClick = {
+                if (specialPermissionRequester.isPermissionGranted().not()) {
+                    specialPermissionRequester.requestPermission()
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(72.dp)
+                .padding(
+                    horizontal = 12.dp,
+                ),
+            shape = RoundedCornerShape(18.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Black,
+            ),
+        ) {
+            Text(
+                text = "Request special permissions",
                 style = Typography.titleLarge,
             )
         }
