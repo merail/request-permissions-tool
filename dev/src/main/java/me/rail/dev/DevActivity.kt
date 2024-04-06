@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.rail.dev.ui.theme.RequestPermissionsToolTheme
 import me.rail.dev.ui.theme.Typography
+import merail.tools.permissions.inform.InternalPermissionsInformer
 import merail.tools.permissions.inform.PermissionsInformer
 import merail.tools.permissions.runtime.RuntimePermissionRequester
 import merail.tools.permissions.runtime.RuntimePermissionState
@@ -34,16 +35,18 @@ class DevActivity : ComponentActivity() {
     }
 
     private val runtimePermissions = arrayOf(
-        Manifest.permission.CALL_PHONE,
+        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
     )
 
-    private val specialPermission = Manifest.permission.SYSTEM_ALERT_WINDOW
+    private val specialPermission = Manifest.permission.PACKAGE_USAGE_STATS
 
     private lateinit var runtimePermissionRequester: RuntimePermissionRequester
     
     private lateinit var specialPermissionRequester: SpecialPermissionRequester
 
     private lateinit var permissionsInformer: PermissionsInformer
+
+    private lateinit var internalPermissionsInformer: InternalPermissionsInformer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +68,11 @@ class DevActivity : ComponentActivity() {
         )
 
         permissionsInformer = PermissionsInformer(this@DevActivity)
+
+        internalPermissionsInformer = InternalPermissionsInformer(
+            activity = this@DevActivity,
+            permissions = permissionsInformer.permissions,
+        )
     }
 
     @Preview(
@@ -76,23 +84,37 @@ class DevActivity : ComponentActivity() {
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceAround,
         ) {
-            CheckPermissionsButton()
+            Button(
+                onClick = {
+                    checkPermissions()
+                },
+                text = "Check permissions",
+            )
 
-            RequestRuntimePermissionsButton()
+            Button(
+                onClick = {
+                    requestRuntimePermissions()
+                },
+                text = "Request runtime permissions",
+            )
 
-            RequestSpecialPermissionsButton()
+            Button(
+                onClick = {
+                    requestSpecialPermissions()
+                },
+                text = "Request special permissions",
+            )
         }
     }
 
     @Composable
-    private fun CheckPermissionsButton() {
+    private fun Button(
+        onClick: () -> Unit,
+        text: String,
+    ) {
         Button(
             onClick = {
-                permissionsInformer.permissions.forEach {
-                    if (permissionsInformer.isSystem(it)) {
-                        Log.d(TAG, it)
-                    }
-                }
+                onClick()
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -106,83 +128,52 @@ class DevActivity : ComponentActivity() {
             ),
         ) {
             Text(
-                text = "Check permissions",
+                text = text,
                 style = Typography.titleLarge,
             )
         }
     }
 
-    @Composable
-    private fun RequestRuntimePermissionsButton() {
-        Button(
-            onClick = {
-                runtimePermissionRequester.requestPermissions {
-                    it.entries.forEach { entry ->
-                        if (entry.value == RuntimePermissionState.GRANTED) {
-                            Log.d(TAG, "${entry.key} ${entry.value}")
-                        } else {
-                            when {
-                                permissionsInformer.isInstallTime(entry.key) -> {
-                                    Log.d(TAG, "${entry.key} is INSTALL-TIME")
-                                }
-                                permissionsInformer.isRuntime(entry.key) -> {
-                                    Log.d(TAG, "${entry.key} is RUNTIME")
-                                }
-                                permissionsInformer.isSpecial(entry.key) -> {
-                                    Log.d(TAG, "${entry.key} is SPECIAL")
-                                }
-                                permissionsInformer.isSystem(entry.key) -> {
-                                    Log.d(TAG, "${entry.key} is SYSTEM")
-                                }
-                                else -> {
-                                    Log.d(TAG, "${entry.key} is UNDEFINED")
-                                }
-                            }
+    private fun checkPermissions() {
+        internalPermissionsInformer.apply {
+            packageManagerPermissions.forEach {
+                if (isSpecial(it.name))
+                    Log.d(TAG, "${it.name} ${protectionToString(it.protection, it.protectionFlags)}")
+            }
+        }
+    }
+    
+    private fun requestRuntimePermissions() {
+        runtimePermissionRequester.requestPermissions {
+            it.entries.forEach { entry ->
+                if (entry.value == RuntimePermissionState.GRANTED) {
+                    Log.d(TAG, "${entry.key} ${entry.value}")
+                } else {
+                    when {
+                        permissionsInformer.isInstallTime(entry.key) -> {
+                            Log.d(TAG, "${entry.key} is INSTALL-TIME")
+                        }
+                        permissionsInformer.isRuntime(entry.key) -> {
+                            Log.d(TAG, "${entry.key} is RUNTIME")
+                        }
+                        permissionsInformer.isSpecial(entry.key) -> {
+                            Log.d(TAG, "${entry.key} is SPECIAL")
+                        }
+                        permissionsInformer.isSystem(entry.key) -> {
+                            Log.d(TAG, "${entry.key} is SYSTEM")
+                        }
+                        else -> {
+                            Log.d(TAG, "${entry.key} is UNDEFINED")
                         }
                     }
                 }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(72.dp)
-                .padding(
-                    horizontal = 12.dp,
-                ),
-            shape = RoundedCornerShape(18.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Black,
-            ),
-        ) {
-            Text(
-                text = "Request runtime permissions",
-                style = Typography.titleLarge,
-            )
+            }
         }
     }
 
-    @Composable
-    private fun RequestSpecialPermissionsButton() {
-        Button(
-            onClick = {
-                if (specialPermissionRequester.isPermissionGranted().not()) {
-                    specialPermissionRequester.requestPermission()
-                }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(72.dp)
-                .padding(
-                    horizontal = 12.dp,
-                ),
-            shape = RoundedCornerShape(18.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Black,
-            ),
-        ) {
-            Text(
-                text = "Request special permissions",
-                style = Typography.titleLarge,
-            )
+    private fun requestSpecialPermissions() {
+        if (specialPermissionRequester.isPermissionGranted().not()) {
+            specialPermissionRequester.requestPermission()
         }
     }
 }

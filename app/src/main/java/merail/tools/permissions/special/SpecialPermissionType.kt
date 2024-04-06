@@ -1,13 +1,19 @@
 package merail.tools.permissions.special
 
+import android.Manifest
 import android.app.AlarmManager
+import android.app.AppOpsManager
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
+import android.os.Process
 import android.provider.MediaStore
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import merail.tools.permissions.common.SettingsOpener
+
 
 sealed class SpecialPermissionType {
 
@@ -47,6 +53,22 @@ sealed class SpecialPermissionType {
         }
     }
 
+    class RequestInstallPackages(
+        val activity: ComponentActivity,
+    ) : SpecialPermissionType() {
+        override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            activity.packageManager.canRequestPackageInstalls()
+        } else {
+            true
+        }
+
+        override fun requestPermission() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                SettingsOpener.openSettings(activity, Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
+            }
+        }
+    }
+
     class ScheduleExactAlarm(
         val activity: ComponentActivity,
     ) : SpecialPermissionType() {
@@ -76,6 +98,22 @@ sealed class SpecialPermissionType {
         override fun requestPermission() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 SettingsOpener.openSettings(activity, Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+            }
+        }
+    }
+
+    class WriteSetting(
+        val activity: ComponentActivity,
+    ) : SpecialPermissionType() {
+        override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Settings.System.canWrite(activity)
+        } else {
+            true
+        }
+
+        override fun requestPermission() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                SettingsOpener.openSettings(activity, Settings.ACTION_MANAGE_WRITE_SETTINGS)
             }
         }
     }
