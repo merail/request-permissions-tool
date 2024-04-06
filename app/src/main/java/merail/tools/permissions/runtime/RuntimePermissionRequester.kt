@@ -40,6 +40,11 @@ class RuntimePermissionRequester(
         throw WrongTimeInitializationException()
     }
 
+    constructor(
+        activity: ComponentActivity,
+        requestedPermission: String,
+    ) : this(activity, arrayOf(requestedPermission))
+
     fun isPermissionGranted(
         permission: String,
     ) = ActivityCompat.checkSelfPermission(
