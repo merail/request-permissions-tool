@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.core.app.ActivityCompat
+import merail.tools.permissions.common.Utils.TAG
 import merail.tools.permissions.common.WrongTimeInitializationException
 import merail.tools.permissions.inform.PermissionsInformer
 
@@ -16,9 +17,6 @@ class RuntimePermissionRequester(
     private val requestedPermissions: Array<String>,
 ) {
     companion object {
-
-        const val TAG = "MERAIL_TOOLS"
-
         private const val PERMISSIONS_PREFERENCES = "PERMISSIONS_PREFERENCES"
     }
 

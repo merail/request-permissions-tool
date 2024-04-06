@@ -2,6 +2,7 @@ package me.rail.dev
 
 import android.Manifest
 import android.content.pm.PermissionInfo
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -39,7 +40,7 @@ class DevActivity : ComponentActivity() {
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
     )
 
-    private val specialPermission = Manifest.permission.PACKAGE_USAGE_STATS
+    private val specialPermission = Manifest.permission.MANAGE_EXTERNAL_STORAGE
 
     private lateinit var runtimePermissionRequester: RuntimePermissionRequester
     
@@ -145,7 +146,11 @@ class DevActivity : ComponentActivity() {
     private fun checkPermissionsIntFlags() {
         internalPermissionsInformer.apply {
             packageManagerPermissions.forEach {
-                Log.d(TAG, "${it.name} ${it.protectionLevel} ${it.protection or it.protectionFlags} ${it.protectionFlags} ${it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE.inv()} ${it.protection} ${it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE}")
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    Log.d(TAG, "${it.name} ${it.protection or it.protectionFlags} ${it.protectionFlags} ${it.protection}")
+                } else {
+                    Log.d(TAG, "${it.name} ${it.protectionLevel} ${it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE.inv()} ${it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE}")
+                }
             }
         }
     }
@@ -153,8 +158,11 @@ class DevActivity : ComponentActivity() {
     private fun checkPermissionsStringFlags() {
         internalPermissionsInformer.apply {
             packageManagerPermissions.forEach {
-                Log.d(TAG, protectionToString(it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE, it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE.inv()))
-                Log.d(TAG, protectionToString(it.protection, it.protectionFlags))
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    Log.d(TAG, "${it.name} ${protectionToString(it.protection, it.protectionFlags)}")
+                } else {
+                    Log.d(TAG, "${it.name} ${protectionToString(it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE, it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE.inv())}")
+                }
             }
         }
     }
