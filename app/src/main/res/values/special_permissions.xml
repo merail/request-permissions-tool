@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="special_permissions">
+        <item>android.permission.INSTANT_APP_FOREGROUND_SERVICE</item>
+        <item>android.permission.INTERACT_ACROSS_PROFILES</item>
+        <item>android.permission.LOADER_USAGE_STATS</item>
+        <item>android.permission.MANAGE_EXTERNAL_STORAGE</item>
+        <item>android.permission.MANAGE_MEDIA</item>
+        <item>android.permission.MANAGE_ONGOING_CALLS</item>
+        <item>android.permission.PACKAGE_USAGE_STATS</item>
+        <item>android.permission.REQUEST_INSTALL_PACKAGES</item>
+        <item>android.permission.SCHEDULE_EXACT_ALARM</item>
+        <item>android.permission.SMS_FINANCIAL_TRANSACTIONS</item>
+        <item>android.permission.SYSTEM_ALERT_WINDOW</item>
+        <item>android.permission.TURN_SCREEN_ON</item>
+        <item>android.permission.USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER</item>
+        <item>android.permission.WRITE_SETTINGS</item>
+    </string-array>
+</resources>
