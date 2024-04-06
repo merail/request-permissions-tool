@@ -13,6 +13,10 @@ class PermissionsInformer(
     val specialPermissions: Array<String> = activity.resources.getStringArray(R.array.special_permissions)
     val systemPermissions: Array<String> = activity.resources.getStringArray(R.array.system_permissions)
 
+    fun isUnknown(
+        permission: String,
+    ) = permissions.contains(permission).not()
+
     fun isInstallTime(
         permission: String,
     ) = installTimePermissions.contains(permission)

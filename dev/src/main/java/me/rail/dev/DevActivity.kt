@@ -35,7 +35,7 @@ class DevActivity : ComponentActivity() {
     }
 
     private val runtimePermissions = arrayOf(
-        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
     )
 
     private val specialPermission = Manifest.permission.PACKAGE_USAGE_STATS

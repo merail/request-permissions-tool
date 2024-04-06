@@ -1,13 +1,8 @@
 package merail.tools.permissions.special
 
-import android.Manifest
 import android.app.AlarmManager
-import android.app.AppOpsManager
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
-import android.os.Process
 import android.provider.MediaStore
 import android.provider.Settings
 import androidx.activity.ComponentActivity

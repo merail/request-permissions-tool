@@ -2,10 +2,10 @@
 <resources>
     <string-array name="runtime_permissions">
         <item>android.permission.ACCEPT_HANDOVER</item>
-        //<item>android.permission.ACCESS_BACKGROUND_LOCATION</item>
+        <item>android.permission.ACCESS_BACKGROUND_LOCATION</item>
         <item>android.permission.ACCESS_COARSE_LOCATION</item>
         <item>android.permission.ACCESS_FINE_LOCATION</item>
-        //<item>android.permission.ACCESS_MEDIA_LOCATION</item>
+        <item>android.permission.ACCESS_MEDIA_LOCATION</item>
         <item>android.permission.ACTIVITY_RECOGNITION</item>
         <item>com.android.voicemail.permission.ADD_VOICEMAIL</item>
         <item>android.permission.ANSWER_PHONE_CALLS</item>
@@ -13,7 +13,7 @@
         <item>android.permission.BLUETOOTH_CONNECT</item>
         <item>android.permission.BLUETOOTH_SCAN</item>
         <item>android.permission.BODY_SENSORS</item>
-        //<item>android.permission.BODY_SENSORS_BACKGROUND</item>
+        <item>android.permission.BODY_SENSORS_BACKGROUND</item>
         <item>android.permission.CALL_PHONE</item>
         <item>android.permission.CAMERA</item>
         <item>android.permission.GET_ACCOUNTS</item>
@@ -23,11 +23,11 @@
         <item>android.permission.READ_CALENDAR</item>
         <item>android.permission.READ_CALL_LOG</item>
         <item>android.permission.READ_CONTACTS</item>
-        //<item>android.permission.READ_EXTERNAL_STORAGE</item>
+        <item>android.permission.READ_EXTERNAL_STORAGE</item>
         <item>android.permission.READ_MEDIA_AUDIO</item>
         <item>android.permission.READ_MEDIA_IMAGES</item>
         <item>android.permission.READ_MEDIA_VIDEO</item>
-        //<item>android.permission.READ_MEDIA_VISUAL_USER_SELECTED</item>
+        <item>android.permission.READ_MEDIA_VISUAL_USER_SELECTED</item>
         <item>android.permission.READ_PHONE_NUMBERS</item>
         <item>android.permission.READ_PHONE_STATE</item>
         <item>android.permission.READ_SMS</item>
@@ -41,6 +41,6 @@
         <item>android.permission.WRITE_CALENDAR</item>
         <item>android.permission.WRITE_CALL_LOG</item>
         <item>android.permission.WRITE_CONTACTS</item>
-        //<item>android.permission.WRITE_EXTERNAL_STORAGE</item>
+        <item>android.permission.WRITE_EXTERNAL_STORAGE</item>
     </string-array>
 </resources>
