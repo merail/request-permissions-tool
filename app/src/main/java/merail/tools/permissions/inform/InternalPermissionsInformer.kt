@@ -29,14 +29,16 @@ class InternalPermissionsInformer(
         get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             PermissionProtectionLevel.fromCode(protection)
         } else {
-            PermissionProtectionLevel.fromCode(protectionLevel)
+            PermissionProtectionLevel.fromCode(
+                code = protectionLevel and PermissionInfo.PROTECTION_MASK_BASE,
+            )
         }
 
     private val PermissionInfo.permissionProtectionFlags: Int
         get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             protectionFlags
         } else {
-            PermissionInfo.PROTECTION_MASK_FLAGS
+            protectionLevel and PermissionInfo.PROTECTION_MASK_BASE.inv()
         }
 
     fun isInstallTime(
@@ -61,7 +63,6 @@ class InternalPermissionsInformer(
         it.name == permission
     }?.run {
         permissionProtectionFlags and PermissionInfo.PROTECTION_FLAG_APPOP != 0 &&
-                //permissionProtectionFlags and PermissionInfo.PROTECTION_FLAG_PRIVILEGED == 0 &&
                 isInstallTime(permission).not()
     } ?: false
 

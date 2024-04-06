@@ -1,6 +1,7 @@
 package me.rail.dev
 
 import android.Manifest
+import android.content.pm.PermissionInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -86,9 +87,16 @@ class DevActivity : ComponentActivity() {
         ) {
             Button(
                 onClick = {
-                    checkPermissions()
+                    checkPermissionsIntFlags()
                 },
-                text = "Check permissions",
+                text = "Check permissions int flags",
+            )
+
+            Button(
+                onClick = {
+                    checkPermissionsStringFlags()
+                },
+                text = "Check permissions string flags",
             )
 
             Button(
@@ -134,11 +142,19 @@ class DevActivity : ComponentActivity() {
         }
     }
 
-    private fun checkPermissions() {
+    private fun checkPermissionsIntFlags() {
         internalPermissionsInformer.apply {
             packageManagerPermissions.forEach {
-                if (isSpecial(it.name))
-                    Log.d(TAG, "${it.name} ${protectionToString(it.protection, it.protectionFlags)}")
+                Log.d(TAG, "${it.name} ${it.protectionLevel} ${it.protection or it.protectionFlags} ${it.protectionFlags} ${it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE.inv()} ${it.protection} ${it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE}")
+            }
+        }
+    }
+
+    private fun checkPermissionsStringFlags() {
+        internalPermissionsInformer.apply {
+            packageManagerPermissions.forEach {
+                Log.d(TAG, protectionToString(it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE, it.protectionLevel and PermissionInfo.PROTECTION_MASK_BASE.inv()))
+                Log.d(TAG, protectionToString(it.protection, it.protectionFlags))
             }
         }
     }
