@@ -92,12 +92,12 @@ sealed class SpecialPermissionType {
 
         override fun requestPermission() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                SettingsOpener.openSettings(activity, Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                SettingsOpener.openSettings(activity, Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
             }
         }
     }
 
-    class WriteSetting(
+    class WriteSettings(
         val activity: ComponentActivity,
     ) : SpecialPermissionType() {
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
