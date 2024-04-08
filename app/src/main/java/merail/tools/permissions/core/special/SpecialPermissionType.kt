@@ -1,4 +1,4 @@
-package merail.tools.permissions.special
+package merail.tools.permissions.core.special
 
 import android.app.AlarmManager
 import android.os.Build
@@ -7,7 +7,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
-import merail.tools.permissions.common.SettingsOpener
+import merail.tools.permissions.core.common.SettingsOpener
 
 
 sealed class SpecialPermissionType {

@@ -1,12 +1,12 @@
-package merail.tools.permissions.special
+package merail.tools.permissions
 
 import android.Manifest
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import merail.tools.permissions.common.TAG
-import merail.tools.permissions.inform.PermissionsInformer
+import merail.tools.permissions.core.common.TAG
+import merail.tools.permissions.core.special.SpecialPermissionType
 
 class SpecialPermissionRequester(
     private val activity: ComponentActivity,
@@ -17,10 +17,16 @@ class SpecialPermissionRequester(
     private var onSpecialPermissionRequestResult: ((Pair<String, Boolean>) -> Unit)? = null
 
     private val specialPermissionType = when (requestedPermission) {
-        Manifest.permission.MANAGE_EXTERNAL_STORAGE -> SpecialPermissionType.ManageExternalStorage(activity)
+        Manifest.permission.MANAGE_EXTERNAL_STORAGE -> SpecialPermissionType.ManageExternalStorage(
+            activity
+        )
         Manifest.permission.MANAGE_MEDIA -> SpecialPermissionType.ManageMedia(activity)
-        Manifest.permission.REQUEST_INSTALL_PACKAGES -> SpecialPermissionType.RequestInstallPackages(activity)
-        Manifest.permission.SCHEDULE_EXACT_ALARM -> SpecialPermissionType.ScheduleExactAlarm(activity)
+        Manifest.permission.REQUEST_INSTALL_PACKAGES -> SpecialPermissionType.RequestInstallPackages(
+            activity
+        )
+        Manifest.permission.SCHEDULE_EXACT_ALARM -> SpecialPermissionType.ScheduleExactAlarm(
+            activity
+        )
         Manifest.permission.SYSTEM_ALERT_WINDOW -> SpecialPermissionType.SystemAlertWindow(activity)
         Manifest.permission.WRITE_SETTINGS -> SpecialPermissionType.WriteSettings(activity)
         else ->  {

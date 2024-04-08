@@ -1,8 +1,8 @@
-package merail.tools.permissions.common
+package merail.tools.permissions.core.common
 
 import android.content.pm.PermissionInfo
 import android.os.Build
-import merail.tools.permissions.inform.PermissionProtectionLevel
+import merail.tools.permissions.core.inform.PermissionProtectionLevel
 
 internal const val TAG = "MERAIL_TOOLS"
 

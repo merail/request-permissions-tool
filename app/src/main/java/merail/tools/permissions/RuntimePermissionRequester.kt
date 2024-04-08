@@ -1,4 +1,4 @@
-package merail.tools.permissions.runtime
+package merail.tools.permissions
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -6,7 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.core.app.ActivityCompat
-import merail.tools.permissions.common.WrongTimeInitializationException
+import merail.tools.permissions.core.common.WrongTimeInitializationException
+import merail.tools.permissions.core.runtime.RuntimePermissionResultObserver
 
 class RuntimePermissionRequester {
     companion object {

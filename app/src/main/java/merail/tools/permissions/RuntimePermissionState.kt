@@ -1,4 +1,4 @@
-package merail.tools.permissions.runtime
+package merail.tools.permissions
 
 enum class RuntimePermissionState {
     GRANTED,

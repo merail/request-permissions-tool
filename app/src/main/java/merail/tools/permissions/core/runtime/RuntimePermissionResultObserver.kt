@@ -1,4 +1,4 @@
-package merail.tools.permissions.runtime
+package merail.tools.permissions.core.runtime
 
 import android.Manifest
 import android.content.SharedPreferences
@@ -6,8 +6,9 @@ import android.os.Build
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
-import merail.tools.permissions.common.TAG
-import merail.tools.permissions.inform.PermissionsInformer
+import merail.tools.permissions.core.common.TAG
+import merail.tools.permissions.PermissionsInformer
+import merail.tools.permissions.RuntimePermissionState
 
 internal class RuntimePermissionResultObserver(
     private val activity: ComponentActivity,
