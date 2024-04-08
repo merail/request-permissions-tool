@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import merail.tools.permissions.common.Utils.TAG
 
 internal object SettingsOpener {
 

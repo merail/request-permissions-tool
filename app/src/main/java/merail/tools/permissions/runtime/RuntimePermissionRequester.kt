@@ -2,48 +2,82 @@ package merail.tools.permissions.runtime
 
 import android.Manifest
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.core.app.ActivityCompat
-import merail.tools.permissions.common.Utils.TAG
+import merail.tools.permissions.common.TAG
 import merail.tools.permissions.common.WrongTimeInitializationException
 import merail.tools.permissions.inform.PermissionsInformer
 
-class RuntimePermissionRequester(
-    private val activity: ComponentActivity,
-    private val requestedPermissions: Array<String>,
-) {
+class RuntimePermissionRequester {
     companion object {
         private const val PERMISSIONS_PREFERENCES = "PERMISSIONS_PREFERENCES"
     }
 
-    private val permissionsInformer = PermissionsInformer(activity)
+    private lateinit var activity: ComponentActivity
 
-    private val preferences = try {
-        activity.getSharedPreferences(PERMISSIONS_PREFERENCES, Context.MODE_PRIVATE)
-    } catch (exception: Exception) {
-        throw WrongTimeInitializationException()
-    }
+    lateinit var requestedPermissions: Array<String>
+
+    var requestedPermission: String = ""
+        set(value) {
+            requestedPermissions = arrayOf(value)
+        }
+
+    private lateinit var permissionsInformer: PermissionsInformer
+
+    private lateinit var preferences: SharedPreferences
 
     private var onRuntimePermissionsRequestResult: ((Map<String, RuntimePermissionState>) -> Unit)? = null
 
-    private val requestPermissionLauncher = try {
-        activity.registerForActivityResult(
-            RequestMultiplePermissions(),
-        ) { permissionsGrants ->
-            onRequestPermissionsResult(permissionsGrants)
-        }
-    } catch (exception: Exception) {
-        throw WrongTimeInitializationException()
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
+
+    constructor(
+        activity: ComponentActivity,
+        requestedPermissions: Array<String>,
+    ) {
+        init(
+            activity = activity,
+            requestedPermissions = requestedPermissions,
+        )
     }
 
     constructor(
         activity: ComponentActivity,
         requestedPermission: String,
-    ) : this(activity, arrayOf(requestedPermission))
+    ) {
+        init(
+            activity = activity,
+            requestedPermissions = arrayOf(requestedPermission),
+        )
+    }
+
+    private fun init(
+        activity: ComponentActivity,
+        requestedPermissions: Array<String>,
+    ) {
+        this.activity = activity
+        this.requestedPermissions = requestedPermissions
+        permissionsInformer = PermissionsInformer(activity)
+        preferences = try {
+            activity.getSharedPreferences(PERMISSIONS_PREFERENCES, Context.MODE_PRIVATE)
+        } catch (exception: Exception) {
+            throw WrongTimeInitializationException()
+        }
+        requestPermissionLauncher = try {
+            activity.registerForActivityResult(
+                RequestMultiplePermissions(),
+            ) { permissionsGrants ->
+                onRequestPermissionsResult(permissionsGrants)
+            }
+        } catch (exception: Exception) {
+            throw WrongTimeInitializationException()
+        }
+    }
 
     fun isPermissionGranted(
         permission: String,

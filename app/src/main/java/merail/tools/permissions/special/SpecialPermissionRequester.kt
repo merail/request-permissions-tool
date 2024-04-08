@@ -3,7 +3,7 @@ package merail.tools.permissions.special
 import android.Manifest
 import android.util.Log
 import androidx.activity.ComponentActivity
-import merail.tools.permissions.common.Utils.TAG
+import merail.tools.permissions.common.TAG
 import merail.tools.permissions.inform.PermissionsInformer
 
 class SpecialPermissionRequester(
