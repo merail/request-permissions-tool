@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class merail.tools.permissions.common.SettingsOpeningSnackbar
+-keepclassmembers class merail.tools.permissions.common.SettingsOpeningSnackbar { *; }
