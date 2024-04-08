@@ -13,7 +13,7 @@ internal object SettingsOpener {
         Log.d(TAG, "Settings are opening with action $action")
         val intent = Intent(
             action,
-            Uri.fromParts(SCHEME, activity.packageName, null)
+            Uri.fromParts(SCHEME, activity.packageName, null),
         )
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         activity.startActivity(intent)

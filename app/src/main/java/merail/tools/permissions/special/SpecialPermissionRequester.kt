@@ -3,14 +3,18 @@ package merail.tools.permissions.special
 import android.Manifest
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import merail.tools.permissions.common.TAG
 import merail.tools.permissions.inform.PermissionsInformer
 
 class SpecialPermissionRequester(
-    activity: ComponentActivity,
+    private val activity: ComponentActivity,
     requestedPermission: String,
 ) {
     private val permissionsInformer = PermissionsInformer(activity)
+
+    private var onSpecialPermissionRequestResult: ((Pair<String, Boolean>) -> Unit)? = null
 
     private val specialPermissionType = when (requestedPermission) {
         Manifest.permission.MANAGE_EXTERNAL_STORAGE -> SpecialPermissionType.ManageExternalStorage(activity)
@@ -31,7 +35,42 @@ class SpecialPermissionRequester(
         }
     }
 
+    private var isFirstOnStartCallback = true
+
+    private val activityLifecycleObserver: LifecycleEventObserver by lazy {
+        LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_START) {
+                isFirstOnStartCallback = if (isFirstOnStartCallback) {
+                    false
+                } else {
+                    activity.lifecycle.removeObserver(activityLifecycleObserver)
+                    val isPermissionGranted = isPermissionGranted()
+                    if (isPermissionGranted) {
+                        Log.d(TAG, "Permission \"$requestedPermission\" is granted")
+                    } else {
+                        Log.d(TAG, "Permission \"$requestedPermission\" is denied")
+                    }
+                    onSpecialPermissionRequestResult?.invoke(
+                        Pair(
+                            first = requestedPermission,
+                            second = isPermissionGranted,
+                        )
+                    )
+                    true
+                }
+            }
+        }
+    }
+
     fun isPermissionGranted() = specialPermissionType.isGranted()
 
-    fun requestPermission() = specialPermissionType.requestPermission()
+    fun requestPermission(
+        onSpecialPermissionRequestResult: ((Pair<String, Boolean>) -> Unit)? = null,
+    ) {
+        this.onSpecialPermissionRequestResult = onSpecialPermissionRequestResult
+        specialPermissionType.requestPermission()
+        if (specialPermissionType !is SpecialPermissionType.Unknown) {
+            activity.lifecycle.addObserver(activityLifecycleObserver)
+        }
+    }
 }

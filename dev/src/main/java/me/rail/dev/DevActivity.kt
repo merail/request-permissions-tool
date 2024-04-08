@@ -197,7 +197,9 @@ class DevActivity : ComponentActivity() {
 
     private fun requestSpecialPermissions() {
         if (specialPermissionRequester.isPermissionGranted().not()) {
-            specialPermissionRequester.requestPermission()
+            specialPermissionRequester.requestPermission {
+                Log.d(TAG, it.toString())
+            }
         }
     }
 }
