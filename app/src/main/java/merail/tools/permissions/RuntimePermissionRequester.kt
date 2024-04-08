@@ -5,10 +5,12 @@ import android.content.pm.PackageManager
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
+import androidx.annotation.Keep
 import androidx.core.app.ActivityCompat
 import merail.tools.permissions.core.common.WrongTimeInitializationException
 import merail.tools.permissions.core.runtime.RuntimePermissionResultObserver
 
+@Keep
 class RuntimePermissionRequester {
     companion object {
         private const val PERMISSIONS_PREFERENCES = "PERMISSIONS_PREFERENCES"

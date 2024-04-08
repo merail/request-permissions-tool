@@ -1,7 +1,9 @@
 package merail.tools.permissions
 
 import androidx.activity.ComponentActivity
+import androidx.annotation.Keep
 
+@Keep
 class PermissionsInformer(
     activity: ComponentActivity,
 ) {
