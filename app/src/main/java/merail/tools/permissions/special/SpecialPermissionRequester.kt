@@ -17,7 +17,7 @@ class SpecialPermissionRequester(
         Manifest.permission.MANAGE_MEDIA -> SpecialPermissionType.ManageMedia(activity)
         Manifest.permission.REQUEST_INSTALL_PACKAGES -> SpecialPermissionType.RequestInstallPackages(activity)
         Manifest.permission.SCHEDULE_EXACT_ALARM -> SpecialPermissionType.ScheduleExactAlarm(activity)
-        Manifest.permission.SYSTEM_ALERT_WINDOW ->  SpecialPermissionType.SystemAlertWindow(activity)
+        Manifest.permission.SYSTEM_ALERT_WINDOW -> SpecialPermissionType.SystemAlertWindow(activity)
         Manifest.permission.WRITE_SETTINGS -> SpecialPermissionType.WriteSettings(activity)
         else ->  {
             when {
