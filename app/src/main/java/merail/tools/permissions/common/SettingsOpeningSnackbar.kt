@@ -3,8 +3,10 @@ package merail.tools.permissions.common
 import android.app.Activity
 import android.provider.Settings
 import android.view.View
+import androidx.annotation.Keep
 import com.google.android.material.snackbar.Snackbar
 
+@Keep
 class SettingsOpeningSnackbar(
     private val activity: Activity,
     private val view: View,
