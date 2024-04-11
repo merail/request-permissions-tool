@@ -1,4 +1,4 @@
-package merail.tools.permissions.core.inform
+package merail.tools.debug
 
 internal enum class PermissionProtectionLevel(
     val code: Int,

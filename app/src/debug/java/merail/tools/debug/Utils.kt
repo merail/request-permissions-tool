@@ -1,10 +1,7 @@
-package merail.tools.permissions.core.common
+package merail.tools.debug
 
 import android.content.pm.PermissionInfo
 import android.os.Build
-import merail.tools.permissions.core.inform.PermissionProtectionLevel
-
-internal const val TAG = "MERAIL_TOOLS"
 
 internal val PermissionInfo.permissionProtectionLevel: PermissionProtectionLevel
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

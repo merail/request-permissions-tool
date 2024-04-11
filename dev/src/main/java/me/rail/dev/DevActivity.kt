@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.rail.dev.ui.theme.RequestPermissionsToolTheme
 import me.rail.dev.ui.theme.Typography
-import merail.tools.permissions.core.inform.InternalPermissionsInformer
+import merail.tools.debug.InternalPermissionsInformer
 import merail.tools.permissions.PermissionsInformer
 import merail.tools.permissions.RuntimePermissionRequester
 import merail.tools.permissions.RuntimePermissionState

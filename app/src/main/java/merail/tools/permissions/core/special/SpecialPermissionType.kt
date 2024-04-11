@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import merail.tools.permissions.core.common.SettingsOpener
 
 
-sealed class SpecialPermissionType {
+internal sealed class SpecialPermissionType {
 
     abstract fun isGranted(): Boolean
 

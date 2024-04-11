@@ -3,13 +3,11 @@ package merail.tools.permissions
 import android.Manifest
 import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.annotation.Keep
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import merail.tools.permissions.core.common.TAG
+import merail.tools.permissions.core.TAG
 import merail.tools.permissions.core.special.SpecialPermissionType
 
-@Keep
 class SpecialPermissionRequester(
     private val activity: ComponentActivity,
     requestedPermission: String,

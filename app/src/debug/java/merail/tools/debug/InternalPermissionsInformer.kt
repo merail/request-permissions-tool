@@ -1,9 +1,7 @@
-package merail.tools.permissions.core.inform
+package merail.tools.debug
 
 import android.content.pm.PermissionInfo
 import androidx.activity.ComponentActivity
-import merail.tools.permissions.core.common.permissionProtectionFlags
-import merail.tools.permissions.core.common.permissionProtectionLevel
 
 class InternalPermissionsInformer(
     activity: ComponentActivity,

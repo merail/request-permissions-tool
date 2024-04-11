@@ -1,5 +1,5 @@
-package merail.tools.permissions.core.common
+package merail.tools.permissions
 
-internal class WrongTimeInitializationException(
+class WrongTimeInitializationException(
     override val message: String = "You should initialize RuntimePermissionRequester in Activity.onCreate method!",
 ) : Exception(message)
