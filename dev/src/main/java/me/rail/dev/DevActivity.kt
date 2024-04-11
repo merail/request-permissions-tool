@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -37,7 +39,7 @@ class DevActivity : ComponentActivity() {
     }
 
     private val runtimePermissions = arrayOf(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.ACCEPT_HANDOVER,
     )
 
     private val specialPermission = Manifest.permission.MANAGE_EXTERNAL_STORAGE
@@ -83,9 +85,39 @@ class DevActivity : ComponentActivity() {
     @Composable
     private fun Content() {
         Column(
-            modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
         ) {
+            Button(
+                onClick = {
+                    getInstallTimePermissions()
+                },
+                text = "Get install-time permissions",
+            )
+
+            Button(
+                onClick = {
+                    getRuntimePermissions()
+                },
+                text = "Get runtime permissions",
+            )
+
+            Button(
+                onClick = {
+                    getSpecialPermissions()
+                },
+                text = "Get special permissions",
+            )
+
+            Button(
+                onClick = {
+                    getSystemPermissions()
+                },
+                text = "Get system permissions",
+            )
+
             Button(
                 onClick = {
                     checkPermissionsIntFlags()
@@ -140,6 +172,46 @@ class DevActivity : ComponentActivity() {
                 text = text,
                 style = Typography.titleLarge,
             )
+        }
+    }
+
+    private fun getInstallTimePermissions() {
+        internalPermissionsInformer.apply {
+            packageManagerPermissions.forEach {
+                if (isInstallTime(it.name)) {
+                    Log.d(TAG, it.name)
+                }
+            }
+        }
+    }
+
+    private fun getRuntimePermissions() {
+        internalPermissionsInformer.apply {
+            packageManagerPermissions.forEach {
+                if (isRuntime(it.name)) {
+                    Log.d(TAG, it.name)
+                }
+            }
+        }
+    }
+
+    private fun getSpecialPermissions() {
+        internalPermissionsInformer.apply {
+            packageManagerPermissions.forEach {
+                if (isSpecial(it.name)) {
+                    Log.d(TAG, it.name)
+                }
+            }
+        }
+    }
+
+    private fun getSystemPermissions() {
+        internalPermissionsInformer.apply {
+            packageManagerPermissions.forEach {
+                if (isSystem(it.name)) {
+                    Log.d(TAG, it.name)
+                }
+            }
         }
     }
 

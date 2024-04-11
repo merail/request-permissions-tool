@@ -9,15 +9,10 @@ android {
 
     defaultConfig {
         applicationId = "me.rail.dev"
-        minSdk = 22
+        minSdk = 21
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
