@@ -15,21 +15,21 @@ class PermissionsInformer(
 
     fun isUnknown(
         permission: String,
-    ) = permissions.contains(permission).not()
+    ) = permission !in permissions
 
     fun isInstallTime(
         permission: String,
-    ) = installTimePermissions.contains(permission)
+    ) = permission in installTimePermissions
 
     fun isRuntime(
         permission: String,
-    ) = runtimePermissions.contains(permission)
+    ) = permission in runtimePermissions
 
     fun isSpecial(
         permission: String,
-    ) = specialPermissions.contains(permission)
+    ) = permission in specialPermissions
 
     fun isSystem(
         permission: String,
-    ) = systemPermissions.contains(permission)
+    ) = permission in systemPermissions
 }

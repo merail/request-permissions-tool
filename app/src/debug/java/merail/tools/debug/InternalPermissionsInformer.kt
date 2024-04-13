@@ -20,7 +20,7 @@ class InternalPermissionsInformer(
                 packageManager.queryPermissionsByGroup(permissionGroupInfo?.name, 0)
             }
             .filter {
-                permissions.contains(it.name)
+                it.name in permissions
             }
     }
 

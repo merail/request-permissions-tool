@@ -1,4 +1,4 @@
-package merail.tools.permissions.common
+package merail.tools.permissions
 
 import android.app.Activity
 import android.provider.Settings

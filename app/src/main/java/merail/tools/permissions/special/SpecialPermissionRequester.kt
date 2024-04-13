@@ -5,14 +5,15 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import merail.tools.permissions.core.TAG
+import merail.tools.permissions.PermissionRequester
+import merail.tools.permissions.core.common.TAG
 import merail.tools.permissions.core.special.SpecialPermissionType
 import merail.tools.permissions.inform.PermissionsInformer
 
 class SpecialPermissionRequester(
     private val activity: ComponentActivity,
-    requestedPermission: String,
-) {
+    var requestedPermission: String,
+) : PermissionRequester(activity) {
     private val permissionsInformer = PermissionsInformer(activity)
 
     private var onSpecialPermissionRequestResult: ((Pair<String, Boolean>) -> Unit)? = null
@@ -61,6 +62,10 @@ class SpecialPermissionRequester(
                 }
             }
         }
+    }
+
+    init {
+        checkPermissionPreviously(requestedPermission)
     }
 
     fun isPermissionGranted() = specialPermissionType.isGranted()
