@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/merail/request-permissions-tool.svg)](https://jitpack.io/#merail/request-permissions-tool)
+
 This Android application is a utility for working with app permissions.
 
 App permissions help support user privacy by protecting access to restricted data and restricted actions (https://developer.android.com/guide/topics/permissions/overview). 
