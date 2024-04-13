@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="deprecated_permissions">
+        <item>android.permission.BIND_CARRIER_MESSAGING_SERVICE</item>
+        <item>android.permission.BIND_CHOOSER_TARGET_SERVICE</item>
+        <item>android.permission.GET_TASKS</item>
+        <item>android.permission.PERSISTENT_ACTIVITY</item>
+        <item>android.permission.PROCESS_OUTGOING_CALLS</item>
+        <item>android.permission.READ_INPUT_STATE</item>
+        <item>android.permission.RESTART_PACKAGES</item>
+        <item>android.permission.SET_PREFERRED_APPLICATIONS</item>
+        <item>android.permission.SMS_FINANCIAL_TRANSACTIONS</item>
+        <item>android.permission.USE_FINGERPRINT</item>
+    </string-array>
+</resources>

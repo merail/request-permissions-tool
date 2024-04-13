@@ -1,7 +1,6 @@
-package merail.tools.permissions.inform
+package merail.tools.debug
 
 import android.content.pm.PermissionInfo
-import android.os.Build
 import androidx.activity.ComponentActivity
 
 class InternalPermissionsInformer(
@@ -21,23 +20,9 @@ class InternalPermissionsInformer(
                 packageManager.queryPermissionsByGroup(permissionGroupInfo?.name, 0)
             }
             .filter {
-                permissions.contains(it.name)
+                it.name in permissions
             }
     }
-
-    private val PermissionInfo.permissionProtectionLevel: PermissionProtectionLevel
-        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            PermissionProtectionLevel.fromCode(protection)
-        } else {
-            PermissionProtectionLevel.fromCode(protectionLevel)
-        }
-
-    private val PermissionInfo.permissionProtectionFlags: Int
-        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            protectionFlags
-        } else {
-            PermissionInfo.PROTECTION_MASK_FLAGS
-        }
 
     fun isInstallTime(
         permission: String,
@@ -61,7 +46,6 @@ class InternalPermissionsInformer(
         it.name == permission
     }?.run {
         permissionProtectionFlags and PermissionInfo.PROTECTION_FLAG_APPOP != 0 &&
-                //permissionProtectionFlags and PermissionInfo.PROTECTION_FLAG_PRIVILEGED == 0 &&
                 isInstallTime(permission).not()
     } ?: false
 

@@ -1,6 +1,6 @@
-package merail.tools.permissions.inform
+package merail.tools.debug
 
-object PermissionProtectionFlags {
+internal object PermissionProtectionFlags {
     val PROTECTION_FLAG_PRIVILEGED = 0x10
     val PROTECTION_FLAG_DEVELOPMENT = 0x20
     val PROTECTION_FLAG_APPOP = 0x40

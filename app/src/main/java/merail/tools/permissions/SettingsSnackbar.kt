@@ -1,11 +1,12 @@
-package merail.tools.permissions.common
+package merail.tools.permissions
 
 import android.app.Activity
 import android.provider.Settings
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
+import merail.tools.permissions.core.common.SettingsOpener
 
-class SettingsOpeningSnackbar(
+class SettingsSnackbar(
     private val activity: Activity,
     private val view: View,
 ) {
