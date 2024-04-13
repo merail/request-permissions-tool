@@ -1,6 +1,7 @@
-package merail.tools.permissions
+package merail.tools.permissions.inform
 
 import androidx.activity.ComponentActivity
+import merail.tools.permissions.R
 
 class PermissionsInformer(
     activity: ComponentActivity,
