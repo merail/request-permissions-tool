@@ -1,37 +1,108 @@
 [![](https://jitpack.io/v/merail/request-permissions-tool.svg)](https://jitpack.io/#merail/request-permissions-tool)
 
-This Android application is a utility for working with app permissions.
+# Request Permissions Tool
 
-App permissions help support user privacy by protecting access to restricted data and restricted actions (https://developer.android.com/guide/topics/permissions/overview). 
-Android categorizes permissions into different types, including install-time permissions, runtime permissions, and special permissions. 
+Make work with Android permissions simpler. The library provides:
 
-This app provides ```RuntimePermissionRequester``` class for handling requests with multiple runtime permissions and responses for them.
+- information about permissions using  ```PermissionsInformer```, such as its [type](https://developer.android.com/guide/topics/permissions/overview#types), required min SDK, etc.
+- ```RuntimePermissionRequester``` for handling requests with single or multiple runtime permissions and responses for them 
+  
+  <img src="https://github.com/merail/request-permissions-tool/blob/master/example1.png" width="300">
+- ```SpecialPermissionRequester``` to manage some special permissions
 
+  <img src="https://github.com/merail/request-permissions-tool/blob/master/example4.png" height="400">.
 
-![alt text](example1.png)
+## Add the library to a project
+### Groovy
+```
+dependencies {
 
+    // other dependencies
+    
+    implementation 'com.github.merail:request-permissions-tool:1.0.0'
+}
+```
 
-With ```RuntimePermissionRequester``` we can handling case when permission denied forever.
+### Kotlin
+```
+dependencies {
 
+    // other dependencies
+    
+    implementation("com.github.merail:request-permissions-tool:1.0.0")
+}
+```
+## Usage
+### PermissionsInformer
+```
+val permissionsInformer = PermissionsInformer(
+    activity = this,
+)
 
-![alt text](example2.png)
+if (permissionsInformer.isInstallTime(Manifest.permission.INTERNET)) {
+    // do something
+} else {
+    // do something
+}
+```
+> [!NOTE]
+> If you just need fast simple permission's type check, you can go to [permissions-lists](https://github.com/merail/permissions-lists) repository.
+### RuntimePermissionRequester
+```
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    
+    ...
+    
+    val runtimePermissionRequester = RuntimePermissionRequester(
+        activity = this,
+        requestedPermissions = arrayOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.READ_CONTACTS,
+        )
+    )
+    
+    runtimePermissionRequester.requestPermissions { permissionsMap ->
+        permissionsMap.entries.forEach { entry ->
+            when (entry.value) {
+                RuntimePermissionState.GRANTED -> // do something
+                RuntimePermissionState.DENIED -> // do something
+                RuntimePermissionState.IGNORED -> // do something
+                RuntimePermissionState.PERMANENTLY_DENIED -> // do something
+            }
+        }
+    }
+}
+```
+> [!NOTE]
+> Since Android 11 you can't manually deny permission forever using checkbox
+> 
+> <img src="https://github.com/merail/request-permissions-tool/blob/master/example2.png" width="300">
+>
+> A second denial will block permission permanently. For first fast decision you can use ```SettingsSnackbar``` to handle this usecase
+>
+> <img src="https://github.com/merail/request-permissions-tool/blob/master/example3.png" width="300">
+### SpecialPermissionRequester
+```
+val specialPermissionRequester = SpecialPermissionRequester(
+    activity = this,
+    requestedPermission = Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+)
 
+specialPermissionRequester.requestPermission { (permission, isGranted) ->
+    if (isGranted) {
+        // do something
+    } else {
+        // do something
+    }
+}
+```
+## License
 
-In this case we can go to app settings through ```Snackbar``` and set permission manually.
+Copyright 2022-2024 Rail' Meshcherov
 
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
-![alt text](example3.png)
+http://www.apache.org/licenses/LICENSE-2.0
 
-
-You can use ```GoingToSettingsSnackbar``` for this.
-
-
-You can also use ```SpecialPermissionRequester``` to manage special permissions (https://developer.android.com/guide/topics/permissions/overview#special). 
-For example, it can be permission for drawing window which will be shown on top of all other apps.
-
-
-![alt text](example4.png)
-
-
-**Note**: You can handle the results of requests in an activity in any way you want, this ```MainActivity``` provides only a possible example of handling. 
-You can find best practices [here](https://developer.android.com/guide/topics/permissions/overview#best-practices).
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
