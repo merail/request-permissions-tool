@@ -17,12 +17,12 @@ internal class SpecialPermissionResultObserver(
         isGranted: Boolean,
     ) = with(type) {
         permission to when {
-            activity.isPermissionDeclaredInManifest(permission).not() -> {
-                Log.e(TAG, "Permission \"$permission\" isn't declared in Manifest!")
-                SpecialPermissionState.DENIED
-            }
             permissionsInformer.isUnknown(permission) -> {
                 Log.e(TAG, "Permission \"$permission\" is unknown. Can't handle it")
+                SpecialPermissionState.DENIED
+            }
+            activity.isPermissionDeclaredInManifest(permission).not() -> {
+                Log.e(TAG, "Permission \"$permission\" isn't declared in Manifest!")
                 SpecialPermissionState.DENIED
             }
             permissionsInformer.isInstallTime(permission) -> {

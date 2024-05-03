@@ -18,13 +18,13 @@ internal class RuntimePermissionResultObserver(
     private val permissionsInformer = PermissionsInformer(activity)
 
     fun invoke(entry: Map.Entry<String, Boolean>) = entry.key to when {
-        entry.isNotDeclaredInManifest() -> {
-            Log.e(TAG, "Permission \"${entry.key}\" isn't declared in Manifest!")
-            RuntimePermissionState.DENIED
-        }
         entry.isUnknown() -> {
             Log.e(TAG, "Permission \"${entry.key}\" is unknown. Can't handle it")
             RuntimePermissionState.IGNORED
+        }
+        entry.isNotDeclaredInManifest() -> {
+            Log.e(TAG, "Permission \"${entry.key}\" isn't declared in Manifest!")
+            RuntimePermissionState.DENIED
         }
         entry.isInstallTime() -> {
             Log.i(TAG, "Permission \"${entry.key}\" is install-time and normal. Declaring this permission in the manifest is sufficient to obtain it")
@@ -81,9 +81,10 @@ internal class RuntimePermissionResultObserver(
         }
     }
 
-    private fun Map.Entry<String, Boolean>.isNotDeclaredInManifest() = activity.isPermissionDeclaredInManifest(
-        permission = key,
-    ).not()
+    private fun Map.Entry<String, Boolean>.isNotDeclaredInManifest() = activity.
+        isPermissionDeclaredInManifest(
+            permission = key,
+        ).not()
 
     private fun Map.Entry<String, Boolean>.isUnknown() = permissionsInformer.isUnknown(key)
 

@@ -64,14 +64,14 @@ class SpecialPermissionRequester(
         onSpecialPermissionRequestResult: ((Pair<String, SpecialPermissionState>) -> Unit)? = null,
     ) {
         this.onSpecialPermissionRequestResult = onSpecialPermissionRequestResult
-        specialPermissionType.requestPermission()
-        if (specialPermissionType is SpecialPermissionType.Unknown) {
+        try {
+            specialPermissionType.requestPermission()
+            activity.lifecycle.addObserver(activityLifecycleObserver)
+        } catch (exception: Exception) {
             specialPermissionResultObserver.invoke(
                 type = specialPermissionType,
                 isGranted = false,
             )
-        } else {
-            activity.lifecycle.addObserver(activityLifecycleObserver)
         }
     }
 }

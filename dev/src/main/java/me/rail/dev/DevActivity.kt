@@ -498,5 +498,4 @@ val requiredApiPermissions = listOf(
     Pair(29,Manifest.permission.USE_FULL_SCREEN_INTENT),
     Pair(31,Manifest.permission.USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER),
     Pair(31,Manifest.permission.UWB_RANGING),
-    Pair(30,Manifest.permission.MANAGE_EXTERNAL_STORAGE),
 )
