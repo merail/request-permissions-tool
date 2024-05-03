@@ -11,6 +11,7 @@ Make work with Android permissions simpler. The library provides:
 - ```SpecialPermissionRequester``` to manage some special permissions
 
   <img src="https://github.com/merail/request-permissions-tool/blob/master/example4.png" height="400">.
+- ```RoleRequester``` for requesting [roles](https://source.android.com/docs/core/permissions/android-roles)
 
 ## Add the library to a project
 ### Groovy
@@ -89,8 +90,8 @@ val specialPermissionRequester = SpecialPermissionRequester(
     requestedPermission = Manifest.permission.MANAGE_EXTERNAL_STORAGE,
 )
 
-specialPermissionRequester.requestPermission { (permission, isGranted) ->
-    if (isGranted) {
+specialPermissionRequester.requestPermission { (permission, state) ->
+    if (state == SpecialPermissionState.GRANTED) {
         // do something
     } else {
         // do something
