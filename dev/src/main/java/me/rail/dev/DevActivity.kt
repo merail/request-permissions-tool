@@ -1,12 +1,14 @@
 package me.rail.dev
 
 import android.Manifest
+import android.app.role.RoleManager
 import android.content.pm.PermissionInfo
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,6 +31,7 @@ import me.rail.dev.ui.theme.RequestPermissionsToolTheme
 import me.rail.dev.ui.theme.Typography
 import merail.tools.debug.InternalPermissionsInformer
 import merail.tools.permissions.inform.PermissionsInformer
+import merail.tools.permissions.role.RoleRequester
 import merail.tools.permissions.runtime.RuntimePermissionRequester
 import merail.tools.permissions.runtime.RuntimePermissionState
 import merail.tools.permissions.special.SpecialPermissionRequester
@@ -45,9 +48,14 @@ class DevActivity : ComponentActivity() {
 
     private val specialPermission = Manifest.permission.MANAGE_EXTERNAL_STORAGE
 
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private val role = RoleManager.ROLE_CALL_SCREENING
+
     private lateinit var runtimePermissionRequester: RuntimePermissionRequester
     
     private lateinit var specialPermissionRequester: SpecialPermissionRequester
+
+    private lateinit var roleRequester: RoleRequester
 
     private lateinit var permissionsInformer: PermissionsInformer
 
@@ -71,6 +79,13 @@ class DevActivity : ComponentActivity() {
             activity = this@DevActivity,
             requestedPermission = specialPermission,
         )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            roleRequester = RoleRequester(
+                activity = this,
+                requestedRole = role,
+            )
+        }
 
         permissionsInformer = PermissionsInformer(this@DevActivity)
 
@@ -153,6 +168,15 @@ class DevActivity : ComponentActivity() {
                 },
                 text = "Request special permissions",
             )
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                Button(
+                    onClick = {
+                        requestRoles()
+                    },
+                    text = "Request roles",
+                )
+            }
         }
     }
 
@@ -287,6 +311,15 @@ class DevActivity : ComponentActivity() {
     private fun requestSpecialPermissions() {
         if (specialPermissionRequester.isPermissionGranted().not()) {
             specialPermissionRequester.requestPermission {
+                Log.d(TAG, it.toString())
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun requestRoles() {
+        if (roleRequester.isRoleGranted().not()) {
+            roleRequester.requestRole {
                 Log.d(TAG, it.toString())
             }
         }
