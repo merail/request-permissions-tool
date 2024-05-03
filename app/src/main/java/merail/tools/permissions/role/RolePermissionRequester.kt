@@ -14,7 +14,7 @@ import merail.tools.permissions.WrongTimeInitializationException
 @RequiresApi(Build.VERSION_CODES.Q)
 class RolePermissionRequester(
     activity: ComponentActivity,
-    var requestedPermission: String,
+    var requestedRole: String,
 ) {
 
     private val roleManager = activity.getSystemService(Context.ROLE_SERVICE) as RoleManager
@@ -35,13 +35,13 @@ class RolePermissionRequester(
         }
     }
 
-    fun isPermissionGranted() = roleManager.isRoleHeld(requestedPermission)
+    fun isPermissionGranted() = roleManager.isRoleHeld(requestedRole)
 
     fun requestPermission(
         onRolePermissionRequestResult: ((Boolean) -> Unit)? = null,
     ) {
         this.onRolePermissionRequestResult = onRolePermissionRequestResult
-        val intent = roleManager.createRequestRoleIntent(requestedPermission)
+        val intent = roleManager.createRequestRoleIntent(requestedRole)
         requestPermissionLauncher.launch(intent)
     }
 }

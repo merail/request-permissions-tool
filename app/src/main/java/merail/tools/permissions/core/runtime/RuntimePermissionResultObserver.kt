@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
 import merail.tools.permissions.core.common.TAG
+import merail.tools.permissions.core.common.isPermissionDeclaredInManifest
 import merail.tools.permissions.inform.PermissionsInformer
 import merail.tools.permissions.runtime.RuntimePermissionState
 
@@ -17,6 +18,10 @@ internal class RuntimePermissionResultObserver(
     private val permissionsInformer = PermissionsInformer(activity)
 
     fun invoke(entry: Map.Entry<String, Boolean>) = entry.key to when {
+        entry.isNotDeclaredInManifest() -> {
+            Log.e(TAG, "Permission \"${entry.key}\" isn't declared in Manifest!")
+            RuntimePermissionState.DENIED
+        }
         entry.isUnknown() -> {
             Log.e(TAG, "Permission \"${entry.key}\" is unknown. Can't handle it")
             RuntimePermissionState.IGNORED
@@ -76,6 +81,9 @@ internal class RuntimePermissionResultObserver(
         }
     }
 
+    private fun Map.Entry<String, Boolean>.isNotDeclaredInManifest() = activity.isPermissionDeclaredInManifest(
+        permission = key,
+    ).not()
 
     private fun Map.Entry<String, Boolean>.isUnknown() = permissionsInformer.isUnknown(key)
 

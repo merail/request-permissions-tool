@@ -1,5 +1,6 @@
 package merail.tools.permissions.core.special
 
+import android.Manifest
 import android.app.AlarmManager
 import android.os.Build
 import android.os.Environment
@@ -10,7 +11,9 @@ import androidx.core.content.ContextCompat
 import merail.tools.permissions.core.common.SettingsOpener
 
 
-internal sealed class SpecialPermissionType {
+internal sealed class SpecialPermissionType(
+    open val permission: String,
+) {
 
     abstract fun isGranted(): Boolean
 
@@ -18,7 +21,7 @@ internal sealed class SpecialPermissionType {
 
     class ManageExternalStorage(
         val activity: ComponentActivity,
-    ) : SpecialPermissionType() {
+    ) : SpecialPermissionType(Manifest.permission.MANAGE_EXTERNAL_STORAGE) {
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Environment.isExternalStorageManager()
         } else {
@@ -34,7 +37,7 @@ internal sealed class SpecialPermissionType {
 
     class ManageMedia(
         val activity: ComponentActivity,
-    ) : SpecialPermissionType() {
+    ) : SpecialPermissionType(Manifest.permission.MANAGE_MEDIA) {
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             MediaStore.canManageMedia(activity)
         } else {
@@ -50,7 +53,7 @@ internal sealed class SpecialPermissionType {
 
     class RequestInstallPackages(
         val activity: ComponentActivity,
-    ) : SpecialPermissionType() {
+    ) : SpecialPermissionType(Manifest.permission.REQUEST_INSTALL_PACKAGES) {
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             activity.packageManager.canRequestPackageInstalls()
         } else {
@@ -66,7 +69,7 @@ internal sealed class SpecialPermissionType {
 
     class ScheduleExactAlarm(
         val activity: ComponentActivity,
-    ) : SpecialPermissionType() {
+    ) : SpecialPermissionType(Manifest.permission.SCHEDULE_EXACT_ALARM) {
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val alarmManager = ContextCompat.getSystemService(activity, AlarmManager::class.java)
             alarmManager?.canScheduleExactAlarms() == true
@@ -83,7 +86,7 @@ internal sealed class SpecialPermissionType {
 
     class SystemAlertWindow(
         val activity: ComponentActivity,
-    ) : SpecialPermissionType() {
+    ) : SpecialPermissionType(Manifest.permission.SYSTEM_ALERT_WINDOW) {
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Settings.canDrawOverlays(activity)
         } else {
@@ -99,7 +102,7 @@ internal sealed class SpecialPermissionType {
 
     class WriteSettings(
         val activity: ComponentActivity,
-    ) : SpecialPermissionType() {
+    ) : SpecialPermissionType(Manifest.permission.WRITE_SETTINGS) {
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Settings.System.canWrite(activity)
         } else {
@@ -113,7 +116,9 @@ internal sealed class SpecialPermissionType {
         }
     }
 
-    object Unknown : SpecialPermissionType() {
+    class Unknown(
+        override val permission: String,
+    ) : SpecialPermissionType(permission) {
         override fun isGranted() = false
 
         override fun requestPermission() = Unit
