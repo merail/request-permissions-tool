@@ -80,5 +80,4 @@ class RuntimePermissionRequester(
         this.onRuntimePermissionsRequestResult = onRuntimePermissionsRequestResult
         requestPermissionLauncher.launch(requestedPermissions)
     }
-
 }
