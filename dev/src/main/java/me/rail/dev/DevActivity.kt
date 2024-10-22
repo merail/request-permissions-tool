@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -57,11 +58,20 @@ class DevActivity : ComponentActivity() {
         requestedRole = RoleManager.ROLE_CALL_SCREENING,
     )
 
+//    private lateinit var runtimePermissionRequester: RuntimePermissionRequester
+//
+//    private lateinit var specialPermissionRequester: SpecialPermissionRequester
+//
+//    private lateinit var roleRequester: RoleRequester
+
     private lateinit var permissionsInformer: PermissionsInformer
 
     private lateinit var internalPermissionsInformer: InternalPermissionsInformer
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        enableEdgeToEdge()
+
         super.onCreate(savedInstanceState)
 
         setContent {
@@ -70,12 +80,37 @@ class DevActivity : ComponentActivity() {
             }
         }
 
-        permissionsInformer = PermissionsInformer(this@DevActivity)
+        permissionsInformer = PermissionsInformer(this)
 
         internalPermissionsInformer = InternalPermissionsInformer(
-            activity = this@DevActivity,
+            activity = this,
             permissions = permissionsInformer.permissions,
         )
+
+//        runtimePermissionRequester = RuntimePermissionRequester(
+//            activity = this,
+//            requestedPermission = Manifest.permission.ACCEPT_HANDOVER,
+//        )
+//
+//        specialPermissionRequester = SpecialPermissionRequester(
+//            activity = this,
+//            requestedPermission = Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+//        )
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            roleRequester = RoleRequester(
+//                activity = this,
+//                requestedRole = RoleManager.ROLE_CALL_SCREENING,
+//            )
+//        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (runtimePermissionRequester.areAllPermissionsGranted().not()) {
+            runtimePermissionRequester.requestPermissions()
+        }
     }
 
     @Preview(
