@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,10 +32,10 @@ import me.rail.dev.ui.theme.RequestPermissionsToolTheme
 import me.rail.dev.ui.theme.Typography
 import merail.tools.debug.InternalPermissionsInformer
 import merail.tools.permissions.inform.PermissionsInformer
-import merail.tools.permissions.role.RoleRequester
-import merail.tools.permissions.runtime.RuntimePermissionRequester
+import merail.tools.permissions.role.roleRequester
 import merail.tools.permissions.runtime.RuntimePermissionState
-import merail.tools.permissions.special.SpecialPermissionRequester
+import merail.tools.permissions.runtime.runtimePermissionRequester
+import merail.tools.permissions.special.specialPermissionRequester
 
 class DevActivity : ComponentActivity() {
 
@@ -42,26 +43,35 @@ class DevActivity : ComponentActivity() {
         private const val TAG = "DevActivity"
     }
 
-    private val runtimePermissions = arrayOf(
-        Manifest.permission.ACCEPT_HANDOVER,
+    private val runtimePermissionRequester by runtimePermissionRequester(
+        requestedPermissions = arrayOf(
+            Manifest.permission.ACCEPT_HANDOVER,
+        ),
     )
 
-    private val specialPermission = Manifest.permission.MANAGE_EXTERNAL_STORAGE
+    private val specialPermissionRequester by specialPermissionRequester(
+        requestedPermission = Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+    )
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private val role = RoleManager.ROLE_CALL_SCREENING
+    @delegate:RequiresApi(Build.VERSION_CODES.Q)
+    private val roleRequester by roleRequester(
+        requestedRole = RoleManager.ROLE_CALL_SCREENING,
+    )
 
-    private lateinit var runtimePermissionRequester: RuntimePermissionRequester
-    
-    private lateinit var specialPermissionRequester: SpecialPermissionRequester
-
-    private lateinit var roleRequester: RoleRequester
+//    private lateinit var runtimePermissionRequester: RuntimePermissionRequester
+//
+//    private lateinit var specialPermissionRequester: SpecialPermissionRequester
+//
+//    private lateinit var roleRequester: RoleRequester
 
     private lateinit var permissionsInformer: PermissionsInformer
 
     private lateinit var internalPermissionsInformer: InternalPermissionsInformer
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        enableEdgeToEdge()
+
         super.onCreate(savedInstanceState)
 
         setContent {
@@ -70,29 +80,37 @@ class DevActivity : ComponentActivity() {
             }
         }
 
-        runtimePermissionRequester = RuntimePermissionRequester(
-            activity = this@DevActivity,
-            requestedPermissions = runtimePermissions,
-        )
-
-        specialPermissionRequester = SpecialPermissionRequester(
-            activity = this@DevActivity,
-            requestedPermission = specialPermission,
-        )
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            roleRequester = RoleRequester(
-                activity = this,
-                requestedRole = role,
-            )
-        }
-
-        permissionsInformer = PermissionsInformer(this@DevActivity)
+        permissionsInformer = PermissionsInformer(this)
 
         internalPermissionsInformer = InternalPermissionsInformer(
-            activity = this@DevActivity,
+            activity = this,
             permissions = permissionsInformer.permissions,
         )
+
+//        runtimePermissionRequester = RuntimePermissionRequester(
+//            activity = this,
+//            requestedPermission = Manifest.permission.ACCEPT_HANDOVER,
+//        )
+//
+//        specialPermissionRequester = SpecialPermissionRequester(
+//            activity = this,
+//            requestedPermission = Manifest.permission.MANAGE_EXTERNAL_STORAGE,
+//        )
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            roleRequester = RoleRequester(
+//                activity = this,
+//                requestedRole = RoleManager.ROLE_CALL_SCREENING,
+//            )
+//        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (runtimePermissionRequester.areAllPermissionsGranted().not()) {
+            runtimePermissionRequester.requestPermissions()
+        }
     }
 
     @Preview(

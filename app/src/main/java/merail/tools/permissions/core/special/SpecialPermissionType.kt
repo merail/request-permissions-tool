@@ -9,7 +9,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
-import merail.tools.permissions.core.common.SdkIncompatibilityException
+import merail.tools.permissions.exceptions.SdkIncompatibilityException
 import merail.tools.permissions.core.common.SettingsOpener
 
 

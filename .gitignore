@@ -62,6 +62,8 @@ captures/
 .idea/appInsightsSettings.xml
 .idea/render.experimental.xml
 .idea/androidTestResultsUserPreferences.xml
+.idea/deploymentTargetSelector.xml
+.idea/other.xml
 
 # Keystore files
 # *.jks

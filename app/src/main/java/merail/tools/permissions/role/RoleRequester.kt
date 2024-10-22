@@ -9,8 +9,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import merail.tools.permissions.WrongTimeInitializationException
 import merail.tools.permissions.core.role.RoleResultObserver
+import merail.tools.permissions.exceptions.WrongTimeInitializationException
 
 @RequiresApi(Build.VERSION_CODES.Q)
 class RoleRequester(

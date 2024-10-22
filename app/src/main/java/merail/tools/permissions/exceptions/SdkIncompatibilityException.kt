@@ -1,3 +1,3 @@
-package merail.tools.permissions.core.common
+package merail.tools.permissions.exceptions
 
 internal class SdkIncompatibilityException : Exception()

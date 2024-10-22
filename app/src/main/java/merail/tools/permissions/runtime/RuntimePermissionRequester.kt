@@ -7,7 +7,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.core.app.ActivityCompat
 import merail.tools.permissions.PermissionRequester
-import merail.tools.permissions.WrongTimeInitializationException
+import merail.tools.permissions.exceptions.WrongTimeInitializationException
 import merail.tools.permissions.core.runtime.RuntimePermissionResultObserver
 
 class RuntimePermissionRequester(
@@ -80,5 +80,4 @@ class RuntimePermissionRequester(
         this.onRuntimePermissionsRequestResult = onRuntimePermissionsRequestResult
         requestPermissionLauncher.launch(requestedPermissions)
     }
-
 }
