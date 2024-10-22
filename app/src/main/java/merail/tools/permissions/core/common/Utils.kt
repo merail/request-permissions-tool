@@ -10,7 +10,6 @@ internal fun Activity.isPermissionDeclaredInManifest(
 ) = packageManager.getPackageInfo(
     packageName,
     PackageManager.GET_PERMISSIONS,
-).requestedPermissions
-    ?.any {
-        it == permission
-    } ?: false
+).requestedPermissions?.any {
+    it == permission
+} ?: false
