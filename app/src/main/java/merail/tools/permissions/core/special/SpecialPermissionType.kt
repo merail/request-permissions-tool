@@ -9,8 +9,8 @@ import android.provider.MediaStore
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
-import merail.tools.permissions.exceptions.SdkIncompatibilityException
 import merail.tools.permissions.core.common.SettingsOpener
+import merail.tools.permissions.exceptions.SdkIncompatibilityException
 
 
 internal sealed class SpecialPermissionType(
@@ -28,7 +28,7 @@ internal sealed class SpecialPermissionType(
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Environment.isExternalStorageManager()
         } else {
-            false
+            true
         }
 
         override fun requestPermission() {
@@ -47,7 +47,7 @@ internal sealed class SpecialPermissionType(
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             MediaStore.canManageMedia(activity)
         } else {
-            false
+            true
         }
 
         override fun requestPermission() {
@@ -66,7 +66,7 @@ internal sealed class SpecialPermissionType(
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             activity.packageManager.canRequestPackageInstalls()
         } else {
-            false
+            true
         }
 
         override fun requestPermission() {
@@ -86,7 +86,7 @@ internal sealed class SpecialPermissionType(
             val alarmManager = ContextCompat.getSystemService(activity, AlarmManager::class.java)
             alarmManager?.canScheduleExactAlarms() == true
         } else {
-            false
+            true
         }
 
         override fun requestPermission() {
@@ -104,7 +104,7 @@ internal sealed class SpecialPermissionType(
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Settings.canDrawOverlays(activity)
         } else {
-            false
+            true
         }
 
         override fun requestPermission() {
@@ -122,7 +122,7 @@ internal sealed class SpecialPermissionType(
         override fun isGranted() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Settings.System.canWrite(activity)
         } else {
-            false
+            true
         }
 
         override fun requestPermission() {
