@@ -1,4 +1,4 @@
-package me.rail.dev
+package merail.tools.permissions.dev
 
 import android.Manifest
 import android.app.role.RoleManager
@@ -28,9 +28,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import me.rail.dev.ui.theme.RequestPermissionsToolTheme
-import me.rail.dev.ui.theme.Typography
 import merail.tools.debug.InternalPermissionsInformer
+import merail.tools.permissions.dev.theme.RequestPermissionsToolTheme
+import merail.tools.permissions.dev.theme.Typography
 import merail.tools.permissions.inform.PermissionsInformer
 import merail.tools.permissions.role.roleRequester
 import merail.tools.permissions.runtime.RuntimePermissionState

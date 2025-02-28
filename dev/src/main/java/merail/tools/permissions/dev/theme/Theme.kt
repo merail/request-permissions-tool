@@ -1,4 +1,4 @@
-package me.rail.dev.ui.theme
+package merail.tools.permissions.dev.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
