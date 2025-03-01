@@ -7,6 +7,8 @@ plugins {
 }
 
 android {
+    namespace = "merail.tools.permissions"
+
     compileSdk = 35
 
     defaultConfig {
@@ -15,8 +17,6 @@ android {
         aarMetadata {
             minCompileSdk = 21
         }
-
-        namespace = "merail.tools.permissions"
     }
 
     buildTypes {

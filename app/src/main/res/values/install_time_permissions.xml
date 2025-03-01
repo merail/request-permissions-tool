@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="install_time_permissions">
+        <item>android.permission.ACCESS_HIDDEN_PROFILES</item>
         <item>android.permission.ACCESS_LOCATION_EXTRA_COMMANDS</item>
         <item>android.permission.ACCESS_NETWORK_STATE</item>
         <item>android.permission.ACCESS_NOTIFICATION_POLICY</item>
@@ -17,6 +18,7 @@
         <item>android.permission.CREDENTIAL_MANAGER_SET_ORIGIN</item>
         <item>android.permission.DELIVER_COMPANION_MESSAGES</item>
         <item>android.permission.DETECT_SCREEN_CAPTURE</item>
+        <item>android.permission.DETECT_SCREEN_RECORDING</item>
         <item>android.permission.DISABLE_KEYGUARD</item>
         <item>android.permission.ENFORCE_UPDATE_OWNERSHIP</item>
         <item>android.permission.EXPAND_STATUS_BAR</item>
@@ -27,6 +29,7 @@
         <item>android.permission.FOREGROUND_SERVICE_HEALTH</item>
         <item>android.permission.FOREGROUND_SERVICE_LOCATION</item>
         <item>android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK</item>
+        <item>android.permission.FOREGROUND_SERVICE_MEDIA_PROCESSING</item>
         <item>android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION</item>
         <item>android.permission.FOREGROUND_SERVICE_MICROPHONE</item>
         <item>android.permission.FOREGROUND_SERVICE_PHONE_CALL</item>

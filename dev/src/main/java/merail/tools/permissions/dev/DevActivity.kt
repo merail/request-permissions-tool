@@ -297,7 +297,7 @@ class DevActivity : ComponentActivity() {
             }
         }
     }
-    
+
     private fun requestRuntimePermissions() {
         runtimePermissionRequester.requestPermissions {
             it.entries.forEach { entry ->
@@ -358,6 +358,7 @@ val deprecatedPermissions = listOf(
 )
 
 val requiredApiPermissions = listOf(
+    Pair(35,Manifest.permission.ACCESS_HIDDEN_PROFILES),
     Pair(28,Manifest.permission.ACCEPT_HANDOVER),
     Pair(29,Manifest.permission.ACCESS_BACKGROUND_LOCATION),
     Pair(31,Manifest.permission.ACCESS_BLOBS_ACROSS_USERS),
@@ -394,6 +395,7 @@ val requiredApiPermissions = listOf(
     Pair(34,Manifest.permission.CREDENTIAL_MANAGER_SET_ALLOWED_PROVIDERS),
     Pair(34,Manifest.permission.CREDENTIAL_MANAGER_SET_ORIGIN),
     Pair(33,Manifest.permission.DELIVER_COMPANION_MESSAGES),
+    Pair(35,Manifest.permission.DETECT_SCREEN_RECORDING),
     Pair(34,Manifest.permission.DETECT_SCREEN_CAPTURE),
     Pair(34,Manifest.permission.ENFORCE_UPDATE_OWNERSHIP),
     Pair(34,Manifest.permission.EXECUTE_APP_ACTION),
@@ -404,6 +406,7 @@ val requiredApiPermissions = listOf(
     Pair(34,Manifest.permission.FOREGROUND_SERVICE_HEALTH),
     Pair(34,Manifest.permission.FOREGROUND_SERVICE_LOCATION),
     Pair(34,Manifest.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK),
+    Pair(35,Manifest.permission.FOREGROUND_SERVICE_MEDIA_PROCESSING),
     Pair(34,Manifest.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION),
     Pair(34,Manifest.permission.FOREGROUND_SERVICE_MICROPHONE),
     Pair(34,Manifest.permission.FOREGROUND_SERVICE_PHONE_CALL),
@@ -428,15 +431,19 @@ val requiredApiPermissions = listOf(
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_APPS_CONTROL),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_APP_RESTRICTIONS),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_APP_USER_DATA),
+    Pair(35,Manifest.permission.MANAGE_DEVICE_POLICY_ASSIST_CONTENT),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_AUDIO_OUTPUT),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_AUTOFILL),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_BACKUP_SERVICE),
+    Pair(35,Manifest.permission.MANAGE_DEVICE_POLICY_BLOCK_UNINSTALL),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_BLUETOOTH),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_BUGREPORT),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_CALLS),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_CAMERA),
+    Pair(35,Manifest.permission.MANAGE_DEVICE_POLICY_CAMERA_TOGGLE),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_CERTIFICATES),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_COMMON_CRITERIA_MODE),
+    Pair(35,Manifest.permission.MANAGE_DEVICE_POLICY_CONTENT_PROTECTION),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_DEBUGGING_FEATURES),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_DEFAULT_SMS),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_DEVICE_IDENTIFIERS),
@@ -452,8 +459,10 @@ val requiredApiPermissions = listOf(
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_LOCK),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_LOCK_CREDENTIALS),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_LOCK_TASK),
+    Pair(35,Manifest.permission.MANAGE_DEVICE_POLICY_MANAGED_SUBSCRIPTIONS),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_METERED_DATA),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_MICROPHONE),
+    Pair(35,Manifest.permission.MANAGE_DEVICE_POLICY_MICROPHONE_TOGGLE),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_MOBILE_NETWORK),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_MODIFY_USERS),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_MTE),
@@ -500,6 +509,7 @@ val requiredApiPermissions = listOf(
     Pair(26,Manifest.permission.MANAGE_OWN_CALLS),
     Pair(33,Manifest.permission.MANAGE_WIFI_INTERFACES),
     Pair(33,Manifest.permission.MANAGE_WIFI_NETWORK_SELECTION),
+    Pair(35,Manifest.permission.MEDIA_ROUTING_CONTROL),
     Pair(33,Manifest.permission.NEARBY_WIFI_DEVICES),
     Pair(30,Manifest.permission.NFC_PREFERRED_PAYMENT_INFO),
     Pair(28,Manifest.permission.NFC_TRANSACTION_EVENT),
@@ -511,6 +521,7 @@ val requiredApiPermissions = listOf(
     Pair(30,Manifest.permission.QUERY_ALL_PACKAGES),
     Pair(33,Manifest.permission.READ_ASSISTANT_APP_SEARCH_DATA),
     Pair(33,Manifest.permission.READ_BASIC_PHONE_STATE),
+    Pair(35,Manifest.permission.READ_DROPBOX_DATA),
     Pair(33,Manifest.permission.READ_HOME_APP_SEARCH_DATA),
     Pair(33,Manifest.permission.READ_MEDIA_AUDIO),
     Pair(33,Manifest.permission.READ_MEDIA_IMAGES),
@@ -536,6 +547,7 @@ val requiredApiPermissions = listOf(
     Pair(29,Manifest.permission.REQUEST_PASSWORD_COMPLEXITY),
     Pair(34,Manifest.permission.RUN_USER_INITIATED_JOBS),
     Pair(31,Manifest.permission.SCHEDULE_EXACT_ALARM),
+    Pair(35,Manifest.permission.SET_BIOMETRIC_DIALOG_ADVANCED),
     Pair(29,Manifest.permission.SMS_FINANCIAL_TRANSACTIONS),
     Pair(31,Manifest.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND),
     Pair(33,Manifest.permission.START_VIEW_APP_FEATURES),

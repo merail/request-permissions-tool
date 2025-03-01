@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_CHECKIN_PROPERTIES"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_HIDDEN_PROFILES"/>
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -82,6 +83,7 @@
     <uses-permission android:name="android.permission.DELETE_PACKAGES"/>
     <uses-permission android:name="android.permission.DELIVER_COMPANION_MESSAGES"/>
     <uses-permission android:name="android.permission.DETECT_SCREEN_CAPTURE"/>
+    <uses-permission android:name="android.permission.DETECT_SCREEN_RECORDING"/>
     <uses-permission android:name="android.permission.DIAGNOSTIC"/>
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <uses-permission android:name="android.permission.DUMP"/>
@@ -96,6 +98,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROCESSING"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL"/>
@@ -130,15 +133,19 @@
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_APPS_CONTROL"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_APP_RESTRICTIONS"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_APP_USER_DATA"/>
+    <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_ASSIST_CONTENT"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_AUDIO_OUTPUT"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_AUTOFILL"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_BACKUP_SERVICE"/>
+    <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_BLOCK_UNINSTALL"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_BLUETOOTH"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_BUGREPORT"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_CALLS"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_CAMERA"/>
+    <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_CAMERA_TOGGLE"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_CERTIFICATES"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_COMMON_CRITERIA_MODE"/>
+    <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_CONTENT_PROTECTION"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_DEBUGGING_FEATURES"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_DEFAULT_SMS"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_DEVICE_IDENTIFIERS"/>
@@ -154,8 +161,10 @@
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_LOCK"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_LOCK_CREDENTIALS"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_LOCK_TASK"/>
+    <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_MANAGED_SUBSCRIPTIONS"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_METERED_DATA"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_MICROPHONE"/>
+    <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_MICROPHONE_TOGGLE"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_MOBILE_NETWORK"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_MODIFY_USERS"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_MTE"/>
@@ -205,6 +214,7 @@
     <uses-permission android:name="android.permission.MANAGE_WIFI_NETWORK_SELECTION"/>
     <uses-permission android:name="android.permission.MASTER_CLEAR"/>
     <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
+    <uses-permission android:name="android.permission.MEDIA_ROUTING_CONTROL"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>
     <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS"/>
@@ -226,6 +236,7 @@
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_DROPBOX_DATA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_HOME_APP_SEARCH_DATA"/>
     <uses-permission android:name="android.permission.READ_INPUT_STATE"/>
@@ -272,6 +283,7 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <uses-permission android:name="android.permission.SET_ALWAYS_FINISH"/>
     <uses-permission android:name="android.permission.SET_ANIMATION_SCALE"/>
+    <uses-permission android:name="android.permission.SET_BIOMETRIC_DIALOG_ADVANCED"/>
     <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
     <uses-permission android:name="android.permission.SET_PREFERRED_APPLICATIONS"/>
     <uses-permission android:name="android.permission.SET_PROCESS_LIMIT"/>

@@ -7,6 +7,7 @@
         <item>android.permission.MANAGE_EXTERNAL_STORAGE</item>
         <item>android.permission.MANAGE_MEDIA</item>
         <item>android.permission.MANAGE_ONGOING_CALLS</item>
+        <item>android.permission.MEDIA_ROUTING_CONTROL</item>
         <item>android.permission.PACKAGE_USAGE_STATS</item>
         <item>android.permission.REQUEST_INSTALL_PACKAGES</item>
         <item>android.permission.SCHEDULE_EXACT_ALARM</item>
