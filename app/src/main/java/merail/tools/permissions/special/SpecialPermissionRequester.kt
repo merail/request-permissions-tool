@@ -8,11 +8,11 @@ import merail.tools.permissions.PermissionRequester
 import merail.tools.permissions.core.special.SpecialPermissionResultObserver
 import merail.tools.permissions.core.special.SpecialPermissionType
 
-class SpecialPermissionRequester(
+public class SpecialPermissionRequester(
     private val activity: ComponentActivity,
     requestedPermission: String,
 ) : PermissionRequester(activity) {
-    var requestedPermission: String = requestedPermission
+    public var requestedPermission: String = requestedPermission
         set(value) {
             checkPermissionPreviously(value)
             field = value
@@ -58,9 +58,9 @@ class SpecialPermissionRequester(
         checkPermissionPreviously(requestedPermission)
     }
 
-    fun isPermissionGranted() = specialPermissionType.isGranted()
+    public fun isPermissionGranted(): Boolean = specialPermissionType.isGranted()
 
-    fun requestPermission(
+    public fun requestPermission(
         onSpecialPermissionRequestResult: ((Pair<String, SpecialPermissionState>) -> Unit)? = null,
     ) {
         this.onSpecialPermissionRequestResult = onSpecialPermissionRequestResult

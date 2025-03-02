@@ -45,6 +45,10 @@ android {
     }
 }
 
+kotlin {
+    explicitApi()
+}
+
 afterEvaluate {
     publishing {
         publications {

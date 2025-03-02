@@ -13,9 +13,9 @@ import merail.tools.permissions.core.role.RoleResultObserver
 import merail.tools.permissions.exceptions.WrongTimeInitializationException
 
 @RequiresApi(Build.VERSION_CODES.Q)
-class RoleRequester(
+public class RoleRequester(
     activity: ComponentActivity,
-    var requestedRole: String,
+    public var requestedRole: String,
 ) {
     private val roleManager = activity.getSystemService(Context.ROLE_SERVICE) as RoleManager
 
@@ -40,9 +40,9 @@ class RoleRequester(
         }
     }
 
-    fun isRoleGranted() = roleManager.isRoleHeld(requestedRole)
+    public fun isRoleGranted(): Boolean = roleManager.isRoleHeld(requestedRole)
 
-    fun requestRole(
+    public fun requestRole(
         onRoleRequestResult: ((Pair<String, RoleState>) -> Unit)? = null,
     ) {
         this.onRoleRequestResult = onRoleRequestResult

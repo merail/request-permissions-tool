@@ -1,6 +1,6 @@
 package merail.tools.permissions.special
 
-enum class SpecialPermissionState {
+public enum class SpecialPermissionState {
     GRANTED,
     DENIED,
 }

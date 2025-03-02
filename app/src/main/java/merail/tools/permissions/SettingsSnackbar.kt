@@ -4,16 +4,16 @@ import android.app.Activity
 import android.provider.Settings
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
-import merail.tools.permissions.core.common.SettingsOpener
+import merail.tools.permissions.core.SettingsOpener
 
-class SettingsSnackbar(
+public class SettingsSnackbar(
     private val activity: Activity,
     private val view: View,
 ) {
-    fun showSnackbar(
+    public fun showSnackbar(
         text: String,
         actionName: String,
-    ) = Snackbar.make(
+    ): Unit = Snackbar.make(
         view,
         text,
         Snackbar.LENGTH_LONG,

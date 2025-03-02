@@ -5,14 +5,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import merail.tools.permissions.RequesterDelegate
 
-fun ComponentActivity.specialPermissionRequester(
+public fun ComponentActivity.specialPermissionRequester(
     requestedPermission: String,
-) = SpecialPermissionRequesterDelegate(
+): SpecialPermissionRequesterDelegate = SpecialPermissionRequesterDelegate(
     activity = this,
     requestedPermission = requestedPermission,
 )
 
-class SpecialPermissionRequesterDelegate(
+public class SpecialPermissionRequesterDelegate(
     private val activity: ComponentActivity,
     private val requestedPermission: String,
 ) : RequesterDelegate<SpecialPermissionRequester>(

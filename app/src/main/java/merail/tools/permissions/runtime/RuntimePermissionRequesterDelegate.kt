@@ -5,21 +5,21 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import merail.tools.permissions.RequesterDelegate
 
-fun ComponentActivity.runtimePermissionRequester(
+public fun ComponentActivity.runtimePermissionRequester(
     requestedPermissions: Array<String>,
-) = RuntimePermissionRequesterDelegate(
+): RuntimePermissionRequesterDelegate = RuntimePermissionRequesterDelegate(
     activity = this,
     requestedPermissions = requestedPermissions,
 )
 
-fun ComponentActivity.runtimePermissionRequester(
+public fun ComponentActivity.runtimePermissionRequester(
     requestedPermission: String,
-) = RuntimePermissionRequesterDelegate(
+): RuntimePermissionRequesterDelegate = RuntimePermissionRequesterDelegate(
     activity = this,
     requestedPermissions = arrayOf(requestedPermission),
 )
 
-class RuntimePermissionRequesterDelegate(
+public class RuntimePermissionRequesterDelegate(
     private val activity: ComponentActivity,
     private val requestedPermissions: Array<String>,
 ) : RequesterDelegate<RuntimePermissionRequester>(

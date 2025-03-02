@@ -6,8 +6,8 @@ import android.os.Build
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.core.app.ActivityCompat
-import merail.tools.permissions.core.common.TAG
-import merail.tools.permissions.core.common.isPermissionDeclaredInManifest
+import merail.tools.permissions.core.TAG
+import merail.tools.permissions.core.isPermissionDeclaredInManifest
 import merail.tools.permissions.inform.PermissionsInformer
 import merail.tools.permissions.runtime.RuntimePermissionState
 

@@ -3,33 +3,32 @@ package merail.tools.permissions.inform
 import androidx.activity.ComponentActivity
 import merail.tools.permissions.R
 
-class PermissionsInformer(
+public class PermissionsInformer(
     activity: ComponentActivity,
 ) {
+    public val permissions: Array<String> = activity.resources.getStringArray(R.array.permissions)
+    public val installTimePermissions: Array<String> = activity.resources.getStringArray(R.array.install_time_permissions)
+    public val runtimePermissions: Array<String> = activity.resources.getStringArray(R.array.runtime_permissions)
+    public val specialPermissions: Array<String> = activity.resources.getStringArray(R.array.special_permissions)
+    public val systemPermissions: Array<String> = activity.resources.getStringArray(R.array.system_permissions)
 
-    val permissions: Array<String> = activity.resources.getStringArray(R.array.permissions)
-    val installTimePermissions: Array<String> = activity.resources.getStringArray(R.array.install_time_permissions)
-    val runtimePermissions: Array<String> = activity.resources.getStringArray(R.array.runtime_permissions)
-    val specialPermissions: Array<String> = activity.resources.getStringArray(R.array.special_permissions)
-    val systemPermissions: Array<String> = activity.resources.getStringArray(R.array.system_permissions)
-
-    fun isUnknown(
+    public fun isUnknown(
         permission: String,
-    ) = permission !in permissions
+    ): Boolean = permission !in permissions
 
-    fun isInstallTime(
+    public fun isInstallTime(
         permission: String,
-    ) = permission in installTimePermissions
+    ): Boolean = permission in installTimePermissions
 
-    fun isRuntime(
+    public fun isRuntime(
         permission: String,
-    ) = permission in runtimePermissions
+    ): Boolean = permission in runtimePermissions
 
-    fun isSpecial(
+    public fun isSpecial(
         permission: String,
-    ) = permission in specialPermissions
+    ): Boolean = permission in specialPermissions
 
-    fun isSystem(
+    public fun isSystem(
         permission: String,
-    ) = permission in systemPermissions
+    ): Boolean = permission in systemPermissions
 }

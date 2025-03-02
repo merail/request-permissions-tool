@@ -7,11 +7,11 @@ import merail.tools.permissions.exceptions.WrongTimeAccessException
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-abstract class RequesterDelegate<T>(
+public abstract class RequesterDelegate<T>(
     activity: ComponentActivity,
 ) : ReadOnlyProperty<LifecycleOwner, T>, LifecycleEventObserver {
 
-    var value: T? = null
+    public var value: T? = null
 
     init {
         @Suppress("LeakingThis")

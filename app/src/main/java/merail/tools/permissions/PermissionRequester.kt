@@ -3,9 +3,9 @@ package merail.tools.permissions
 import android.app.Activity
 import android.os.Build
 import android.util.Log
-import merail.tools.permissions.core.common.TAG
+import merail.tools.permissions.core.TAG
 
-abstract class PermissionRequester(
+public abstract class PermissionRequester(
     activity: Activity,
 ) {
     private val permissions: Array<String> = activity.resources.getStringArray(R.array.permissions)
@@ -14,7 +14,7 @@ abstract class PermissionRequester(
 
     private val deprecatedPermissions: Array<String> = activity.resources.getStringArray(R.array.deprecated_permissions)
 
-    fun checkPermissionPreviously(
+    public fun checkPermissionPreviously(
         permission: String,
     ) {
         val index = permissions.indexOf(permission)
