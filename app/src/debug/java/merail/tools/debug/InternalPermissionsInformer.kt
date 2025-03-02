@@ -3,14 +3,13 @@ package merail.tools.debug
 import android.content.pm.PermissionInfo
 import androidx.activity.ComponentActivity
 
-class InternalPermissionsInformer(
+public class InternalPermissionsInformer(
     activity: ComponentActivity,
     private val permissions: Array<String> = arrayOf(),
 ) {
-
     private val packageManager = activity.packageManager
 
-    val packageManagerPermissions by lazy {
+    public val packageManagerPermissions: List<PermissionInfo> by lazy {
         packageManager
             .getAllPermissionGroups(0)
             .toMutableList()
@@ -24,34 +23,34 @@ class InternalPermissionsInformer(
             }
     }
 
-    fun isInstallTime(
+    public fun isInstallTime(
         permission: String,
-    ) = packageManagerPermissions.find {
+    ): Boolean = packageManagerPermissions.find {
         it.name == permission
     }?.run {
         permissionProtectionLevel == PermissionProtectionLevel.NORMAL
     } ?: false
 
-    fun isRuntime(
+    public fun isRuntime(
         permission: String,
-    ) = packageManagerPermissions.find {
+    ): Boolean = packageManagerPermissions.find {
         it.name == permission
     }?.run {
         permissionProtectionLevel == PermissionProtectionLevel.DANGEROUS
     } ?: false
 
-    fun isSpecial(
+    public fun isSpecial(
         permission: String,
-    ) = packageManagerPermissions.find {
+    ): Boolean = packageManagerPermissions.find {
         it.name == permission
     }?.run {
         permissionProtectionFlags and PermissionInfo.PROTECTION_FLAG_APPOP != 0 &&
                 isInstallTime(permission).not()
     } ?: false
 
-    fun isSystem(
+    public fun isSystem(
         permission: String,
-    ) = packageManagerPermissions.find {
+    ): Boolean = packageManagerPermissions.find {
         it.name == permission
     }?.run {
         (permissionProtectionLevel == PermissionProtectionLevel.SIGNATURE ||
@@ -60,7 +59,7 @@ class InternalPermissionsInformer(
                 isSpecial(permission).not()
     } ?: false
 
-    fun protectionToString(
+    public fun protectionToString(
         level: Int,
         flags: Int,
     ): String {

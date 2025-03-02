@@ -7,6 +7,7 @@
         <item>android.permission.ACCESS_CHECKIN_PROPERTIES</item>
         <item>android.permission.ACCESS_COARSE_LOCATION</item>
         <item>android.permission.ACCESS_FINE_LOCATION</item>
+        <item>android.permission.ACCESS_HIDDEN_PROFILES</item>
         <item>android.permission.ACCESS_LOCATION_EXTRA_COMMANDS</item>
         <item>android.permission.ACCESS_MEDIA_LOCATION</item>
         <item>android.permission.ACCESS_NETWORK_STATE</item>
@@ -82,6 +83,7 @@
         <item>android.permission.DELETE_PACKAGES</item>
         <item>android.permission.DELIVER_COMPANION_MESSAGES</item>
         <item>android.permission.DETECT_SCREEN_CAPTURE</item>
+        <item>android.permission.DETECT_SCREEN_RECORDING</item>
         <item>android.permission.DIAGNOSTIC</item>
         <item>android.permission.DISABLE_KEYGUARD</item>
         <item>android.permission.DUMP</item>
@@ -96,6 +98,7 @@
         <item>android.permission.FOREGROUND_SERVICE_HEALTH</item>
         <item>android.permission.FOREGROUND_SERVICE_LOCATION</item>
         <item>android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK</item>
+        <item>android.permission.FOREGROUND_SERVICE_MEDIA_PROCESSING</item>
         <item>android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION</item>
         <item>android.permission.FOREGROUND_SERVICE_MICROPHONE</item>
         <item>android.permission.FOREGROUND_SERVICE_PHONE_CALL</item>
@@ -130,15 +133,19 @@
         <item>android.permission.MANAGE_DEVICE_POLICY_APPS_CONTROL</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_APP_RESTRICTIONS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_APP_USER_DATA</item>
+        <item>android.permission.MANAGE_DEVICE_POLICY_ASSIST_CONTENT</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_AUDIO_OUTPUT</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_AUTOFILL</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_BACKUP_SERVICE</item>
+        <item>android.permission.MANAGE_DEVICE_POLICY_BLOCK_UNINSTALL</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_BLUETOOTH</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_BUGREPORT</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_CALLS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_CAMERA</item>
+        <item>android.permission.MANAGE_DEVICE_POLICY_CAMERA_TOGGLE</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_CERTIFICATES</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_COMMON_CRITERIA_MODE</item>
+        <item>android.permission.MANAGE_DEVICE_POLICY_CONTENT_PROTECTION</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_DEBUGGING_FEATURES</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_DEFAULT_SMS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_DEVICE_IDENTIFIERS</item>
@@ -154,8 +161,10 @@
         <item>android.permission.MANAGE_DEVICE_POLICY_LOCK</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_LOCK_CREDENTIALS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_LOCK_TASK</item>
+        <item>android.permission.MANAGE_DEVICE_POLICY_MANAGED_SUBSCRIPTIONS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_METERED_DATA</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_MICROPHONE</item>
+        <item>android.permission.MANAGE_DEVICE_POLICY_MICROPHONE_TOGGLE</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_MOBILE_NETWORK</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_MODIFY_USERS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_MTE</item>
@@ -205,6 +214,7 @@
         <item>android.permission.MANAGE_WIFI_NETWORK_SELECTION</item>
         <item>android.permission.MASTER_CLEAR</item>
         <item>android.permission.MEDIA_CONTENT_CONTROL</item>
+        <item>android.permission.MEDIA_ROUTING_CONTROL</item>
         <item>android.permission.MODIFY_AUDIO_SETTINGS</item>
         <item>android.permission.MODIFY_PHONE_STATE</item>
         <item>android.permission.MOUNT_FORMAT_FILESYSTEMS</item>
@@ -226,6 +236,7 @@
         <item>android.permission.READ_CALENDAR</item>
         <item>android.permission.READ_CALL_LOG</item>
         <item>android.permission.READ_CONTACTS</item>
+        <item>android.permission.READ_DROPBOX_DATA</item>
         <item>android.permission.READ_EXTERNAL_STORAGE</item>
         <item>android.permission.READ_HOME_APP_SEARCH_DATA</item>
         <item>android.permission.READ_INPUT_STATE</item>
@@ -272,6 +283,7 @@
         <item>com.android.alarm.permission.SET_ALARM</item>
         <item>android.permission.SET_ALWAYS_FINISH</item>
         <item>android.permission.SET_ANIMATION_SCALE</item>
+        <item>android.permission.SET_BIOMETRIC_DIALOG_ADVANCED</item>
         <item>android.permission.SET_DEBUG_APP</item>
         <item>android.permission.SET_PREFERRED_APPLICATIONS</item>
         <item>android.permission.SET_PROCESS_LIMIT</item>

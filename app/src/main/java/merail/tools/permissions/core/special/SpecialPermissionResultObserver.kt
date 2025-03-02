@@ -2,8 +2,8 @@ package merail.tools.permissions.core.special
 
 import android.util.Log
 import androidx.activity.ComponentActivity
-import merail.tools.permissions.core.common.TAG
-import merail.tools.permissions.core.common.isPermissionDeclaredInManifest
+import merail.tools.permissions.core.TAG
+import merail.tools.permissions.core.isPermissionDeclaredInManifest
 import merail.tools.permissions.inform.PermissionsInformer
 import merail.tools.permissions.special.SpecialPermissionState
 

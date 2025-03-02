@@ -7,18 +7,19 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.core.app.ActivityCompat
 import merail.tools.permissions.PermissionRequester
-import merail.tools.permissions.exceptions.WrongTimeInitializationException
 import merail.tools.permissions.core.runtime.RuntimePermissionResultObserver
+import merail.tools.permissions.exceptions.WrongTimeInitializationException
 
-class RuntimePermissionRequester(
+public class RuntimePermissionRequester(
     private val activity: ComponentActivity,
     requestedPermissions: Array<String>,
 ) : PermissionRequester(activity) {
-    companion object {
+
+    public companion object {
         private const val PERMISSIONS_PREFERENCES = "PERMISSIONS_PREFERENCES"
     }
 
-    var requestedPermissions: Array<String> = requestedPermissions
+    public var requestedPermissions: Array<String> = requestedPermissions
         set(value) {
             value.forEach {
                 checkPermissionPreviously(it)
@@ -26,7 +27,7 @@ class RuntimePermissionRequester(
             field = value
         }
 
-    var requestedPermission: String = ""
+    public var requestedPermission: String = ""
         set(value) {
             requestedPermissions = arrayOf(value)
         }
@@ -58,23 +59,23 @@ class RuntimePermissionRequester(
         }
     }
 
-    constructor(
+    public constructor(
         activity: ComponentActivity,
         requestedPermission: String,
     ) : this(activity, arrayOf(requestedPermission))
 
-    fun isPermissionGranted(
+    public fun isPermissionGranted(
         permission: String,
-    ) = ActivityCompat.checkSelfPermission(
+    ): Boolean = ActivityCompat.checkSelfPermission(
         activity,
         permission,
     ) == PackageManager.PERMISSION_GRANTED
 
-    fun areAllPermissionsGranted() = requestedPermissions.none { permission ->
+    public fun areAllPermissionsGranted(): Boolean = requestedPermissions.none { permission ->
         isPermissionGranted(permission).not()
     }
 
-    fun requestPermissions(
+    public fun requestPermissions(
         onRuntimePermissionsRequestResult: ((Map<String, RuntimePermissionState>) -> Unit)? = null,
     ) {
         this.onRuntimePermissionsRequestResult = onRuntimePermissionsRequestResult

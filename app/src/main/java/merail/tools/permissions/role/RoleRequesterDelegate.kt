@@ -6,14 +6,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import merail.tools.permissions.RequesterDelegate
 
-fun ComponentActivity.roleRequester(
+public fun ComponentActivity.roleRequester(
     requestedRole: String,
-) = RoleRequesterDelegate(
+): RoleRequesterDelegate = RoleRequesterDelegate(
     activity = this,
     requestedRole = requestedRole,
 )
 
-class RoleRequesterDelegate(
+public class RoleRequesterDelegate(
     private val activity: ComponentActivity,
     private val requestedRole: String,
 ) : RequesterDelegate<RoleRequester>(

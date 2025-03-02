@@ -9,14 +9,13 @@ import android.provider.MediaStore
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
-import merail.tools.permissions.core.common.SettingsOpener
-import merail.tools.permissions.exceptions.SdkIncompatibilityException
+import merail.tools.permissions.core.SettingsOpener
+import merail.tools.permissions.core.exceptions.SdkIncompatibilityException
 
 
 internal sealed class SpecialPermissionType(
     open val permission: String,
 ) {
-
     abstract fun isGranted(): Boolean
 
     abstract fun requestPermission()
