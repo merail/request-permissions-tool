@@ -20,7 +20,7 @@ dependencies {
 
     // other dependencies
     
-    implementation 'com.github.merail:request-permissions-tool:1.0.0'
+    implementation 'com.github.merail:request-permissions-tool:1.2.0'
 }
 ```
 
@@ -30,7 +30,7 @@ dependencies {
 
     // other dependencies
     
-    implementation("com.github.merail:request-permissions-tool:1.0.0")
+    implementation("com.github.merail:request-permissions-tool:1.2.0")
 }
 ```
 ## Usage
@@ -100,7 +100,7 @@ specialPermissionRequester.requestPermission { (permission, state) ->
 ```
 ## License
 
-Copyright 2022-2024 Rail' Meshcherov
+Copyright 2022-2025 Rail' Meshcherov
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
