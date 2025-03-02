@@ -24,8 +24,8 @@ rootProject.name = "request-permissions-tool"
 
 include(":app")
 
-if (gradle.startParameter.taskNames.any { it.contains("Release") }) {
-    println("\"dev\" module was excluded from release build")
+if (System.getenv("JITPACK").isNullOrEmpty().not()) {
+    println("\"dev\" module was excluded from JitPack release build")
 } else {
     include(":dev")
 }
