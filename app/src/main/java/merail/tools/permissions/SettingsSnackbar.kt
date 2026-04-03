@@ -24,3 +24,8 @@ public class SettingsSnackbar(
         )
     }.show()
 }
+
+public fun Activity.openSettings(): Unit = SettingsOpener.openSettings(
+    activity = this,
+    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+)
