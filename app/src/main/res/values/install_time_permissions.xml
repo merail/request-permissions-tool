@@ -6,6 +6,7 @@
         <item>android.permission.ACCESS_NETWORK_STATE</item>
         <item>android.permission.ACCESS_NOTIFICATION_POLICY</item>
         <item>android.permission.ACCESS_WIFI_STATE</item>
+        <item>android.permission.APPLY_PICTURE_PROFILE</item>
         <item>android.permission.BLUETOOTH</item>
         <item>android.permission.BLUETOOTH_ADMIN</item>
         <item>android.permission.BROADCAST_STICKY</item>
@@ -49,8 +50,10 @@
         <item>android.permission.NFC_PREFERRED_PAYMENT_INFO</item>
         <item>android.permission.NFC_TRANSACTION_EVENT</item>
         <item>android.permission.PERSISTENT_ACTIVITY</item>
+        <item>android.permission.QUERY_ADVANCED_PROTECTION_MODE</item>
         <item>android.permission.QUERY_ALL_PACKAGES</item>
         <item>android.permission.READ_BASIC_PHONE_STATE</item>
+        <item>android.permission.READ_COLOR_ZONES</item>
         <item>android.permission.READ_NEARBY_STREAMING_POLICY</item>
         <item>android.permission.READ_SYNC_SETTINGS</item>
         <item>android.permission.READ_SYNC_STATS</item>
@@ -71,6 +74,7 @@
         <item>android.permission.SET_WALLPAPER</item>
         <item>android.permission.SET_WALLPAPER_HINTS</item>
         <item>android.permission.TRANSMIT_IR</item>
+        <item>android.permission.TV_IMPLICIT_ENTER_PIP</item>
         <item>com.android.launcher.permission.UNINSTALL_SHORTCUT</item>
         <item>android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION</item>
         <item>android.permission.USE_BIOMETRIC</item>

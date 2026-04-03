@@ -17,9 +17,11 @@
         <item>android.permission.ACTIVITY_RECOGNITION</item>
         <item>com.android.voicemail.permission.ADD_VOICEMAIL</item>
         <item>android.permission.ANSWER_PHONE_CALLS</item>
+        <item>android.permission.APPLY_PICTURE_PROFILE</item>
         <item>android.permission.BATTERY_STATS</item>
         <item>android.permission.BIND_ACCESSIBILITY_SERVICE</item>
         <item>android.permission.BIND_APPWIDGET</item>
+        <item>android.permission.BIND_APP_FUNCTION_SERVICE</item>
         <item>android.permission.BIND_AUTOFILL_SERVICE</item>
         <item>android.permission.BIND_CALL_REDIRECTION_SERVICE</item>
         <item>android.permission.BIND_CARRIER_MESSAGING_CLIENT_SERVICE</item>
@@ -44,6 +46,7 @@
         <item>android.permission.BIND_SCREENING_SERVICE</item>
         <item>android.permission.BIND_TELECOM_CONNECTION_SERVICE</item>
         <item>android.permission.BIND_TEXT_SERVICE</item>
+        <item>android.permission.BIND_TV_AD_SERVICE</item>
         <item>android.permission.BIND_TV_INPUT</item>
         <item>android.permission.BIND_TV_INTERACTIVE_APP</item>
         <item>android.permission.BIND_VISUAL_VOICEMAIL_SERVICE</item>
@@ -89,6 +92,7 @@
         <item>android.permission.DUMP</item>
         <item>android.permission.ENFORCE_UPDATE_OWNERSHIP</item>
         <item>android.permission.EXECUTE_APP_ACTION</item>
+        <item>android.permission.EXECUTE_APP_FUNCTIONS</item>
         <item>android.permission.EXPAND_STATUS_BAR</item>
         <item>android.permission.FACTORY_TEST</item>
         <item>android.permission.FOREGROUND_SERVICE</item>
@@ -131,6 +135,7 @@
         <item>android.permission.MANAGE_DEVICE_POLICY_ACROSS_USERS_SECURITY_CRITICAL</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_AIRPLANE_MODE</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_APPS_CONTROL</item>
+        <item>android.permission.MANAGE_DEVICE_POLICY_APP_FUNCTIONS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_APP_RESTRICTIONS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_APP_USER_DATA</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_ASSIST_CONTENT</item>
@@ -196,6 +201,7 @@
         <item>android.permission.MANAGE_DEVICE_POLICY_SYSTEM_APPS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_SYSTEM_DIALOGS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_SYSTEM_UPDATES</item>
+        <item>android.permission.MANAGE_DEVICE_POLICY_THREAD_NETWORK</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_TIME</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_USB_DATA_SIGNALLING</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_USB_FILE_TRANSFER</item>
@@ -230,11 +236,14 @@
         <item>android.permission.PROCESS_OUTGOING_CALLS</item>
         <item>android.permission.PROVIDE_OWN_AUTOFILL_SUGGESTIONS</item>
         <item>android.permission.PROVIDE_REMOTE_CREDENTIALS</item>
+        <item>android.permission.QUERY_ADVANCED_PROTECTION_MODE</item>
         <item>android.permission.QUERY_ALL_PACKAGES</item>
+        <item>android.permission.RANGING</item>
         <item>android.permission.READ_ASSISTANT_APP_SEARCH_DATA</item>
         <item>android.permission.READ_BASIC_PHONE_STATE</item>
         <item>android.permission.READ_CALENDAR</item>
         <item>android.permission.READ_CALL_LOG</item>
+        <item>android.permission.READ_COLOR_ZONES</item>
         <item>android.permission.READ_CONTACTS</item>
         <item>android.permission.READ_DROPBOX_DATA</item>
         <item>android.permission.READ_EXTERNAL_STORAGE</item>
@@ -252,6 +261,7 @@
         <item>android.permission.READ_SMS</item>
         <item>android.permission.READ_SYNC_SETTINGS</item>
         <item>android.permission.READ_SYNC_STATS</item>
+        <item>android.permission.READ_SYSTEM_PREFERENCES</item>
         <item>com.android.voicemail.permission.READ_VOICEMAIL</item>
         <item>android.permission.REBOOT</item>
         <item>android.permission.RECEIVE_BOOT_COMPLETED</item>
@@ -274,6 +284,7 @@
         <item>android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS</item>
         <item>android.permission.REQUEST_INSTALL_PACKAGES</item>
         <item>android.permission.REQUEST_OBSERVE_COMPANION_DEVICE_PRESENCE</item>
+        <item>android.permission.REQUEST_OBSERVE_DEVICE_UUID_PRESENCE</item>
         <item>android.permission.REQUEST_PASSWORD_COMPLEXITY</item>
         <item>android.permission.RESTART_PACKAGES</item>
         <item>android.permission.RUN_USER_INITIATED_JOBS</item>
@@ -301,6 +312,7 @@
         <item>android.permission.SYSTEM_ALERT_WINDOW</item>
         <item>android.permission.TRANSMIT_IR</item>
         <item>android.permission.TURN_SCREEN_ON</item>
+        <item>android.permission.TV_IMPLICIT_ENTER_PIP</item>
         <item>com.android.launcher.permission.UNINSTALL_SHORTCUT</item>
         <item>android.permission.UPDATE_DEVICE_STATS</item>
         <item>android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION</item>
@@ -322,6 +334,7 @@
         <item>android.permission.WRITE_SECURE_SETTINGS</item>
         <item>android.permission.WRITE_SETTINGS</item>
         <item>android.permission.WRITE_SYNC_SETTINGS</item>
+        <item>android.permission.WRITE_SYSTEM_PREFERENCES</item>
         <item>com.android.voicemail.permission.WRITE_VOICEMAIL</item>
     </string-array>
 </resources>

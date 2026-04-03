@@ -16,5 +16,6 @@
         <item>android.permission.TURN_SCREEN_ON</item>
         <item>android.permission.USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER</item>
         <item>android.permission.WRITE_SETTINGS</item>
+        <item>android.permission.WRITE_SYSTEM_PREFERENCES</item>
     </string-array>
 </resources>

@@ -20,6 +20,7 @@
         <item>android.permission.NEARBY_WIFI_DEVICES</item>
         <item>android.permission.POST_NOTIFICATIONS</item>
         <item>android.permission.PROCESS_OUTGOING_CALLS</item>
+        <item>android.permission.RANGING</item>
         <item>android.permission.READ_CALENDAR</item>
         <item>android.permission.READ_CALL_LOG</item>
         <item>android.permission.READ_CONTACTS</item>
