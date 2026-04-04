@@ -7,6 +7,7 @@
         <item>android.permission.BATTERY_STATS</item>
         <item>android.permission.BIND_ACCESSIBILITY_SERVICE</item>
         <item>android.permission.BIND_APPWIDGET</item>
+        <item>android.permission.BIND_APP_FUNCTION_SERVICE</item>
         <item>android.permission.BIND_AUTOFILL_SERVICE</item>
         <item>android.permission.BIND_CALL_REDIRECTION_SERVICE</item>
         <item>android.permission.BIND_CARRIER_MESSAGING_CLIENT_SERVICE</item>
@@ -31,6 +32,7 @@
         <item>android.permission.BIND_SCREENING_SERVICE</item>
         <item>android.permission.BIND_TELECOM_CONNECTION_SERVICE</item>
         <item>android.permission.BIND_TEXT_SERVICE</item>
+        <item>android.permission.BIND_TV_AD_SERVICE</item>
         <item>android.permission.BIND_TV_INPUT</item>
         <item>android.permission.BIND_TV_INTERACTIVE_APP</item>
         <item>android.permission.BIND_VISUAL_VOICEMAIL_SERVICE</item>
@@ -54,6 +56,7 @@
         <item>android.permission.DIAGNOSTIC</item>
         <item>android.permission.DUMP</item>
         <item>android.permission.EXECUTE_APP_ACTION</item>
+        <item>android.permission.EXECUTE_APP_FUNCTIONS</item>
         <item>android.permission.FACTORY_TEST</item>
         <item>android.permission.GET_ACCOUNTS_PRIVILEGED</item>
         <item>android.permission.GLOBAL_SEARCH</item>
@@ -70,6 +73,7 @@
         <item>android.permission.MANAGE_DEVICE_POLICY_ACROSS_USERS_SECURITY_CRITICAL</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_AIRPLANE_MODE</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_APPS_CONTROL</item>
+        <item>android.permission.MANAGE_DEVICE_POLICY_APP_FUNCTIONS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_APP_RESTRICTIONS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_APP_USER_DATA</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_ASSIST_CONTENT</item>
@@ -135,6 +139,7 @@
         <item>android.permission.MANAGE_DEVICE_POLICY_SYSTEM_APPS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_SYSTEM_DIALOGS</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_SYSTEM_UPDATES</item>
+        <item>android.permission.MANAGE_DEVICE_POLICY_THREAD_NETWORK</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_TIME</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_USB_DATA_SIGNALLING</item>
         <item>android.permission.MANAGE_DEVICE_POLICY_USB_FILE_TRANSFER</item>
@@ -161,6 +166,7 @@
         <item>android.permission.READ_INPUT_STATE</item>
         <item>android.permission.READ_LOGS</item>
         <item>android.permission.READ_PRECISE_PHONE_STATE</item>
+        <item>android.permission.READ_SYSTEM_PREFERENCES</item>
         <item>com.android.voicemail.permission.READ_VOICEMAIL</item>
         <item>android.permission.REBOOT</item>
         <item>android.permission.REQUEST_COMPANION_PROFILE_APP_STREAMING</item>
@@ -168,6 +174,7 @@
         <item>android.permission.REQUEST_COMPANION_PROFILE_COMPUTER</item>
         <item>android.permission.REQUEST_COMPANION_PROFILE_NEARBY_DEVICE_STREAMING</item>
         <item>android.permission.REQUEST_COMPANION_SELF_MANAGED</item>
+        <item>android.permission.REQUEST_OBSERVE_DEVICE_UUID_PRESENCE</item>
         <item>android.permission.SEND_RESPOND_VIA_MESSAGE</item>
         <item>android.permission.SET_ALWAYS_FINISH</item>
         <item>android.permission.SET_ANIMATION_SCALE</item>

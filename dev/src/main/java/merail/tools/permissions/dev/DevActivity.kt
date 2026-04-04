@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -122,6 +123,7 @@ class DevActivity : ComponentActivity() {
             verticalArrangement = Arrangement.SpaceAround,
             modifier = Modifier
                 .fillMaxSize()
+                .systemBarsPadding()
                 .verticalScroll(rememberScrollState()),
         ) {
             Button(
@@ -366,7 +368,9 @@ val requiredApiPermissions = listOf(
     Pair(23,Manifest.permission.ACCESS_NOTIFICATION_POLICY),
     Pair(29,Manifest.permission.ACTIVITY_RECOGNITION),
     Pair(26,Manifest.permission.ANSWER_PHONE_CALLS),
+    Pair(36,Manifest.permission.APPLY_PICTURE_PROFILE),
     Pair(26,Manifest.permission.BIND_AUTOFILL_SERVICE),
+    Pair(36,Manifest.permission.BIND_APP_FUNCTION_SERVICE),
     Pair(29,Manifest.permission.BIND_CALL_REDIRECTION_SERVICE),
     Pair(29,Manifest.permission.BIND_CARRIER_MESSAGING_CLIENT_SERVICE),
     Pair(22,Manifest.permission.BIND_CARRIER_MESSAGING_SERVICE),
@@ -382,6 +386,7 @@ val requiredApiPermissions = listOf(
     Pair(24,Manifest.permission.BIND_QUICK_SETTINGS_TILE),
     Pair(24,Manifest.permission.BIND_SCREENING_SERVICE),
     Pair(23,Manifest.permission.BIND_TELECOM_CONNECTION_SERVICE),
+    Pair(36,Manifest.permission.BIND_TV_AD_SERVICE),
     Pair(33,Manifest.permission.BIND_TV_INTERACTIVE_APP),
     Pair(26,Manifest.permission.BIND_VISUAL_VOICEMAIL_SERVICE),
     Pair(24,Manifest.permission.BIND_VR_LISTENER_SERVICE),
@@ -399,6 +404,7 @@ val requiredApiPermissions = listOf(
     Pair(34,Manifest.permission.DETECT_SCREEN_CAPTURE),
     Pair(34,Manifest.permission.ENFORCE_UPDATE_OWNERSHIP),
     Pair(34,Manifest.permission.EXECUTE_APP_ACTION),
+    Pair(36,Manifest.permission.EXECUTE_APP_FUNCTIONS),
     Pair(28,Manifest.permission.FOREGROUND_SERVICE),
     Pair(34,Manifest.permission.FOREGROUND_SERVICE_CAMERA),
     Pair(34,Manifest.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE),
@@ -429,6 +435,7 @@ val requiredApiPermissions = listOf(
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_ACROSS_USERS_SECURITY_CRITICAL),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_AIRPLANE_MODE),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_APPS_CONTROL),
+    Pair(36,Manifest.permission.MANAGE_DEVICE_POLICY_APP_FUNCTIONS),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_APP_RESTRICTIONS),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_APP_USER_DATA),
     Pair(35,Manifest.permission.MANAGE_DEVICE_POLICY_ASSIST_CONTENT),
@@ -494,6 +501,7 @@ val requiredApiPermissions = listOf(
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_SYSTEM_APPS),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_SYSTEM_DIALOGS),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_SYSTEM_UPDATES),
+    Pair(36,Manifest.permission.MANAGE_DEVICE_POLICY_THREAD_NETWORK),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_TIME),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_USB_DATA_SIGNALLING),
     Pair(34,Manifest.permission.MANAGE_DEVICE_POLICY_USB_FILE_TRANSFER),
@@ -518,9 +526,12 @@ val requiredApiPermissions = listOf(
     Pair(33,Manifest.permission.POST_NOTIFICATIONS),
     Pair(34,Manifest.permission.PROVIDE_OWN_AUTOFILL_SUGGESTIONS),
     Pair(34,Manifest.permission.PROVIDE_REMOTE_CREDENTIALS),
+    Pair(36,Manifest.permission.QUERY_ADVANCED_PROTECTION_MODE),
     Pair(30,Manifest.permission.QUERY_ALL_PACKAGES),
+    Pair(36,Manifest.permission.RANGING),
     Pair(33,Manifest.permission.READ_ASSISTANT_APP_SEARCH_DATA),
     Pair(33,Manifest.permission.READ_BASIC_PHONE_STATE),
+    Pair(36,Manifest.permission.READ_COLOR_ZONES),
     Pair(35,Manifest.permission.READ_DROPBOX_DATA),
     Pair(33,Manifest.permission.READ_HOME_APP_SEARCH_DATA),
     Pair(33,Manifest.permission.READ_MEDIA_AUDIO),
@@ -530,6 +541,7 @@ val requiredApiPermissions = listOf(
     Pair(33,Manifest.permission.READ_NEARBY_STREAMING_POLICY),
     Pair(26,Manifest.permission.READ_PHONE_NUMBERS),
     Pair(30,Manifest.permission.READ_PRECISE_PHONE_STATE),
+    Pair(36,Manifest.permission.READ_SYSTEM_PREFERENCES),
     Pair(33,Manifest.permission.REQUEST_COMPANION_PROFILE_APP_STREAMING),
     Pair(33,Manifest.permission.REQUEST_COMPANION_PROFILE_AUTOMOTIVE_PROJECTION),
     Pair(33,Manifest.permission.REQUEST_COMPANION_PROFILE_COMPUTER),
@@ -544,6 +556,7 @@ val requiredApiPermissions = listOf(
     Pair(23,Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS),
     Pair(23,Manifest.permission.REQUEST_INSTALL_PACKAGES),
     Pair(31,Manifest.permission.REQUEST_OBSERVE_COMPANION_DEVICE_PRESENCE),
+    Pair(36,Manifest.permission.REQUEST_OBSERVE_DEVICE_UUID_PRESENCE),
     Pair(29,Manifest.permission.REQUEST_PASSWORD_COMPLEXITY),
     Pair(34,Manifest.permission.RUN_USER_INITIATED_JOBS),
     Pair(31,Manifest.permission.SCHEDULE_EXACT_ALARM),
@@ -554,6 +567,7 @@ val requiredApiPermissions = listOf(
     Pair(29,Manifest.permission.START_VIEW_PERMISSION_USAGE),
     Pair(33,Manifest.permission.SUBSCRIBE_TO_KEYGUARD_LOCKED_STATE),
     Pair(34,Manifest.permission.TURN_SCREEN_ON),
+    Pair(36,Manifest.permission.TV_IMPLICIT_ENTER_PIP),
     Pair(31,Manifest.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION),
     Pair(28,Manifest.permission.USE_BIOMETRIC),
     Pair(33,Manifest.permission.USE_EXACT_ALARM),
@@ -561,4 +575,5 @@ val requiredApiPermissions = listOf(
     Pair(29,Manifest.permission.USE_FULL_SCREEN_INTENT),
     Pair(31,Manifest.permission.USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER),
     Pair(31,Manifest.permission.UWB_RANGING),
+    Pair(36,Manifest.permission.WRITE_SYSTEM_PREFERENCES),
 )

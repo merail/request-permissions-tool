@@ -65,6 +65,8 @@ captures/
 .idea/deploymentTargetSelector.xml
 .idea/other.xml
 .idea/deviceManager.xml
+.idea/markdown.xml
+.idea/AndroidProjectSystem.xml
 
 # Kotlin compiler
 .kotlin

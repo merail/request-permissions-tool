@@ -37,6 +37,42 @@ internal class SpecialPermissionResultObserver(
                 Log.w(TAG, "Permission \"$permission\" is system. This permission is only granted to system apps")
                 SpecialPermissionState.DENIED
             }
+            type is SpecialPermissionType.InteractAcrossProfiles && type.canRequest().not() -> {
+                Log.w(TAG, "Permission \"$permission\" requires a work profile to be set up on the device")
+                SpecialPermissionState.DENIED
+            }
+            type is SpecialPermissionType.InstantAppForegroundService && isGranted.not() -> {
+                Log.w(TAG, "Permission \"$permission\" is only granted to instant apps automatically")
+                SpecialPermissionState.DENIED
+            }
+            type is SpecialPermissionType.LoaderUsageStats && isGranted.not() -> {
+                Log.w(TAG, "Permission \"$permission\" is only granted to privileged system apps")
+                SpecialPermissionState.DENIED
+            }
+            type is SpecialPermissionType.ManageOngoingCalls && isGranted.not() -> {
+                Log.w(TAG, "Permission \"$permission\" is only granted through CompanionDeviceManager association")
+                SpecialPermissionState.DENIED
+            }
+            type is SpecialPermissionType.MediaRoutingControl && isGranted.not() -> {
+                Log.w(TAG, "Permission \"$permission\" is only granted to system apps")
+                SpecialPermissionState.DENIED
+            }
+            type is SpecialPermissionType.SmsFinancialTransactions && isGranted.not() -> {
+                Log.w(TAG, "Permission \"$permission\" is only granted to system apps on API 29-30 and deprecated since API 31")
+                SpecialPermissionState.DENIED
+            }
+            type is SpecialPermissionType.TurnScreenOn && isGranted.not() -> {
+                Log.w(TAG, "Permission \"$permission\" is only granted to privileged system apps")
+                SpecialPermissionState.DENIED
+            }
+            type is SpecialPermissionType.UseIccAuthWithDeviceIdentifier && isGranted.not() -> {
+                Log.w(TAG, "Permission \"$permission\" is only granted to apps with carrier privileges")
+                SpecialPermissionState.DENIED
+            }
+            type is SpecialPermissionType.WriteSystemPreferences && isGranted.not() -> {
+                Log.w(TAG, "Permission \"$permission\" is only granted to privileged system apps")
+                SpecialPermissionState.DENIED
+            }
             type is SpecialPermissionType.Unknown -> {
                 Log.w(TAG, "SpecialPermissionRequester currently doesn't have implementation for permission \"$permission\"")
                 SpecialPermissionState.DENIED

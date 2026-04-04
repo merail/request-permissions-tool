@@ -25,12 +25,22 @@ public class SpecialPermissionRequester(
     private var onSpecialPermissionRequestResult: ((Pair<String, SpecialPermissionState>) -> Unit)? = null
 
     private val specialPermissionType = when (requestedPermission) {
+        Manifest.permission.INSTANT_APP_FOREGROUND_SERVICE -> SpecialPermissionType.InstantAppForegroundService(activity)
+        Manifest.permission.INTERACT_ACROSS_PROFILES -> SpecialPermissionType.InteractAcrossProfiles(activity)
+        Manifest.permission.LOADER_USAGE_STATS -> SpecialPermissionType.LoaderUsageStats(activity)
         Manifest.permission.MANAGE_EXTERNAL_STORAGE -> SpecialPermissionType.ManageExternalStorage(activity)
         Manifest.permission.MANAGE_MEDIA -> SpecialPermissionType.ManageMedia(activity)
+        Manifest.permission.MANAGE_ONGOING_CALLS -> SpecialPermissionType.ManageOngoingCalls(activity)
+        Manifest.permission.MEDIA_ROUTING_CONTROL -> SpecialPermissionType.MediaRoutingControl(activity)
+        Manifest.permission.PACKAGE_USAGE_STATS -> SpecialPermissionType.PackageUsageStats(activity)
         Manifest.permission.REQUEST_INSTALL_PACKAGES -> SpecialPermissionType.RequestInstallPackages(activity)
         Manifest.permission.SCHEDULE_EXACT_ALARM -> SpecialPermissionType.ScheduleExactAlarm(activity)
+        Manifest.permission.SMS_FINANCIAL_TRANSACTIONS -> SpecialPermissionType.SmsFinancialTransactions(activity)
         Manifest.permission.SYSTEM_ALERT_WINDOW -> SpecialPermissionType.SystemAlertWindow(activity)
+        Manifest.permission.TURN_SCREEN_ON -> SpecialPermissionType.TurnScreenOn(activity)
+        Manifest.permission.USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER -> SpecialPermissionType.UseIccAuthWithDeviceIdentifier(activity)
         Manifest.permission.WRITE_SETTINGS -> SpecialPermissionType.WriteSettings(activity)
+        Manifest.permission.WRITE_SYSTEM_PREFERENCES -> SpecialPermissionType.WriteSystemPreferences(activity)
         else -> SpecialPermissionType.Unknown(requestedPermission)
     }
 
